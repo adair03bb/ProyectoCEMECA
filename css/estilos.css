@@ -1,0 +1,109 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(to bottom, #efebce, #d6ce93);
+    height: 100vh;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    text-align: center;
+    background-color: #d6ce93;
+}
+
+.logos {
+    display: flex;
+    align-items: center;
+}
+
+#logoEscudo, #logoEdomex, #logoSS {
+    width: 150px;
+    height: auto;
+}
+
+#separador {
+    height: 60px;
+    border-left: 3px solid black;
+    margin-right: 10px;
+    margin-left: 10px;
+
+}
+
+.contenido-central {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1;
+}
+
+#titulo {
+    color: black;
+    font-size: 4vw;
+    font-family: Arial Black;
+    margin: 0;
+    padding-bottom: 2px;
+}
+
+.division {
+    width: 80%;
+    border-bottom: 3px solid black;
+    margin: 5px 0;
+}
+
+.subtitulo {
+    color: black;
+    font-family: Arial Black;
+    font-size: 2vw;
+}
+
+@media (max-width: 768px) {
+    #logoEscudo, #logoEdomex, #logoSS {
+        width: 120px;
+    }
+
+    #titulo {
+        font-size: 6vw;
+    }
+
+    .subtitulo {
+        font-size: 4vw;
+    }
+
+    .division {
+        width: 90%;
+    }
+
+    #separador {
+        height: 60px;
+    }
+}
+
+@media (max-width: 480px) {
+    #logoEscudo, #logoEdomex, #logoSS {
+        width: 100px;
+    }
+
+    #titulo {
+        font-size: 8vw;
+    }
+
+    .subtitulo {
+        font-size: 5vw;
+    }
+
+    .division {
+        width: 95%; 
+    }
+
+    #separador {
+        height: 20px;
+    }
+}
