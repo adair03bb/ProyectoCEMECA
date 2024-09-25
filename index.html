@@ -23,17 +23,29 @@
             <img id="logoSS" src="img/sseguridad.png" alt="Logo SS">
         </div>
     </header>
-    <h1 class="titulos">SiGeCA</h1>
-    <h2 class="subtitu">Sistema General de Control de Adolescentes</h2>
+    <div class="sigeca">
+        <br><h1 class="titulos">SiGeCA</h1><br>
+        <h2 class="subtitu">Sistema General de Control de Adolescentes</h2><br>
+    </div>
     
     <div class="cajas-login">
-        <input type="text" size="15" maxlength="30" value="Nombre" name="nombre">
-        <br>
-        <input type="text" size="15" maxlength="30" value="Nombre" name="nombre">
-       </div>
-        
-       <div class="botones">
-        <input type="button" value="">
-       </div>
+        <label for="" class="textoUsario"> 
+            <img id="iconoUsuario" src="icons/policia.png" alt="Icono de Usuario">
+            Usuario</label> 
+        <input class="cajas" type="text"  maxlength="30" value="" placeholder="Ingresa tu usuario" name="nombre">
+        <label for="" class="textoUsario">
+            <img id="iconoPassword" src="icons/contrasena.png" alt="Icono de Usuario">
+            Password</label>
+        <input class="cajas" type="text" maxlength="30" value="" placeholder="Ingresa tu contraseña" name="nombre">
+    </div>
+   
+    <div class="botones-login">
+        <button type="button"> 
+            <img id="iconoAceptar" src="icons/aceptar.png" alt="Icono de Usuario">
+            Ingresar</button>
+        <button type="button">
+            <img id="iconoCancelar" src="icons/cancelar.png" alt="Icono de Usuario">
+            Cancelar</button>
+    </div>
 </body>
 </html>

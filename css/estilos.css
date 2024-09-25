@@ -64,6 +64,47 @@ header {
     font-size: 2vw;
 }
 
+.sigeca{
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.sigeca .titulos{
+    font-size: 100px;
+    font-weight: 900;
+    font-family: Arial;
+}
+
+.cajas-login{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 9px;
+  
+}   
+
+.cajas-login .cajas{
+    width: 250px;
+    height: 35px; 
+}
+
+
+.botones-login{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 9px;
+    
+}
+
+.botones-login button{
+    width: 120px;
+    height: 35px;
+}
+
+
+/*Responsive*/
 @media (max-width: 768px) {
     #logoEscudo, #logoEdomex, #logoSS {
         width: 120px;
@@ -107,3 +148,6 @@ header {
         height: 20px;
     }
 }
+
+
+
