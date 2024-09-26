@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SiGeCA</title>
     <link rel="stylesheet" href="css/estilos.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
@@ -14,38 +15,36 @@
         </div>
         <div class="contenido-central">
             <h1 id="titulo">CEMECA</h1>
-            <div class="division"></div>
+        <div class="division"></div>
             <h2 class="subtitulo">Centro Estatal de Medidas Cautelares</h2>
         </div>
         <div class="logos">
             <img id="logoEdomex" src="img/edomex.png" alt="Logo Edomex">
-            <div id="separador"></div>
-            <img id="logoSS" src="img/sseguridad.png" alt="Logo SS">
+            <!--<div id="separador"></div>-->
+           <!-- <img id="logoSS" src="img/sseguridad.png" alt="Logo SS">-->
         </div>
     </header>
+
     <div class="sigeca">
-        <br><h1 class="titulos">SiGeCA</h1><br>
+        <h1 class="titulos">SIGECA</h1>
         <h2 class="subtitu">Sistema General de Control de Adolescentes</h2><br>
     </div>
-    
+
     <div class="cajas-login">
-        <label for="" class="textoUsario"> 
-            <img id="iconoUsuario" src="icons/policia.png" alt="Icono de Usuario">
-            Usuario</label> 
-        <input class="cajas" type="text"  maxlength="30" value="" placeholder="Ingresa tu usuario" name="nombre">
-        <label for="" class="textoUsario">
-            <img id="iconoPassword" src="icons/contrasena.png" alt="Icono de Usuario">
-            Password</label>
-        <input class="cajas" type="password" maxlength="30" value="" placeholder="Ingresa tu contraseña" name="nombre">
-    </div>
-   
-    <div class="botones-login">
-        <button type="button">
-            <img id="iconoAceptar"  src="icons/aceptar.png" alt="Icono de Usuario">
-            Ingresar</button>
-        <button type="button">
-            <img id="iconoCancelar" src="icons/cancelar.png" alt="Icono de Usuario">
-            Cancelar</button>
+        <form class="formulario" action="">
+            <h1>Login</h1>
+            <div class="labelInput">
+                <input type="text" placeholder="Usuario" required>
+                <i class='bx bxs-user'></i>
+            </div>
+            <div class="labelInput">
+                <input type="password" placeholder="Contraseña" required>
+                <i class='bx bxs-lock-alt'></i>
+            </div>
+            <button type="submit" class="btn_ingresar">Ingresar</button>
+            <div class="ing">
+            </div>
+        </form>
     </div>
 </body>
 </html>
