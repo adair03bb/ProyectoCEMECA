@@ -95,12 +95,12 @@ header {
     align-items: center;
     justify-content: center;
     margin-top: 9px;
-    
 }
+
 
 .botones-login button{
     width: 120px;
-    height: 35px;
+    height: 35px;   
 }
 
 
