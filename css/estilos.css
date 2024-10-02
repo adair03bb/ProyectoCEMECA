@@ -5,7 +5,7 @@
 }
 
 body {
-    background: linear-gradient(to bottom, #457b9d, #1d3557);
+    background: linear-gradient(to bottom, #1d3557, #457b9d);
     height: 100vh;
     font-family: Arial, sans-serif;
     background-size: cover;
