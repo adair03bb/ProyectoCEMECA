@@ -4,8 +4,26 @@ USE sigeca;
 
 DROP TABLE IF EXISTS eval_adolescentes;
 DROP TABLE IF EXISTS reevaluaciones;
-	
-	CREATE TABLE IF NOT EXISTS eval_adolescentes (
+
+CREATE TABLE IF NOT EXISTS tipos_usuario (
+    id INT NOT NULL AUTO_INCREMENT,
+    tipo VARCHAR(50) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS usuario (
+    idusuario INT NOT NULL AUTO_INCREMENT,
+    nombre VARCHAR(50) NOT NULL,
+    usuario VARCHAR(20) NOT NULL,
+    contrasena VARCHAR(20) NOT NULL,
+    fecha_alta DATE NOT NULL,
+    tipo_usuario_id INT,
+    estado TINYINT(1) NULL DEFAULT 1,
+    PRIMARY KEY (idusuario),
+    FOREIGN KEY (tipo_usuario_id) REFERENCES tipos_usuario(id)
+);
+
+CREATE TABLE IF NOT EXISTS eval_adolescentes (
     evaluacion VARCHAR(50),
     reevaluacion VARCHAR(50),
     carpeta_administrativa VARCHAR(100),
@@ -60,9 +78,10 @@ DROP TABLE IF EXISTS reevaluaciones;
     estado VARCHAR(50),
     verificado VARCHAR(10),
     tipo_verificacion VARCHAR(50),
-    observaciones TEXT)ENGINE=InnoDB DEFAULT CHARSET=utf8;
-	
-	CREATE TABLE IF NOT EXISTS reevaluaciones (
+    observaciones TEXT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS reevaluaciones (
     evaluacion VARCHAR(50),
     reevaluacion VARCHAR(50),
     carpeta_administrativa VARCHAR(100),
@@ -118,15 +137,5 @@ DROP TABLE IF EXISTS reevaluaciones;
     estado VARCHAR(50),
     verificada VARCHAR(10),
     tipo_verificacion VARCHAR(50),
-    observaciones TEXT) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE IF NOT EXISTS usuario (
-  `idusuario` INT NOT NULL AUTO_INCREMENT,
-  `nombre` VARCHAR(50) NOT NULL,
-  `usuario` VARCHAR(20) NOT NULL,
-  `contrasena` VARCHAR(20) NOT NULL,
-  `fecha_alta` DATE NOT NULL,
-  `tipo_usuario` VARCHAR(20) NULL,
-  `estado` TINYINT(1) NULL DEFAULT 1,
-  PRIMARY KEY (`idusuario`)
-);
+    observaciones TEXT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
