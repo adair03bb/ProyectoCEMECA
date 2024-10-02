@@ -119,3 +119,14 @@ DROP TABLE IF EXISTS reevaluaciones;
     verificada VARCHAR(10),
     tipo_verificacion VARCHAR(50),
     observaciones TEXT) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS usuario (
+  `idusuario` INT NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(50) NOT NULL,
+  `usuario` VARCHAR(20) NOT NULL,
+  `contrasena` VARCHAR(20) NOT NULL,
+  `fecha_alta` DATE NOT NULL,
+  `tipo_usuario` VARCHAR(20) NULL,
+  `estado` TINYINT(1) NULL DEFAULT 1,
+  PRIMARY KEY (`idusuario`)
+);
