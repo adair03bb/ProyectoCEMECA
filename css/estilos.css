@@ -5,7 +5,8 @@
 }
 
 body {
-    background: linear-gradient(to bottom, #1d3557, #457b9d);
+    
+    background-image: url(../img/net.jpg);
     height: 100vh;
     font-family: Arial, sans-serif;
     background-size: cover;
@@ -19,8 +20,8 @@ header {
     align-items: center;
     padding: 8px 5%;
     text-align: center;
-    background-color: #1d3557;
-    margin-bottom: 6%;
+    background-color: #001d3d;
+   
 }
 
 .logos {
@@ -101,7 +102,9 @@ header {
     padding: 20px;
     color: #fff;
     border-radius: 20px;
+    margin-top: 150px;
 }
+
 .cajas-login h1{
     font-size: 36px;
     text-align: center;
