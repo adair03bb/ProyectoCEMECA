@@ -32,14 +32,14 @@
     </div>
 -->
     <div class="cajas-login">
-        <form class="formulario" action="">
+        <form class="formulario" action="controller/loginController.php" method="post">
             <h1>Login</h1>
             <div class="labelInput">
-                <input type="text" placeholder="Usuario" required>
+                <input type="text" placeholder="Usuario" name="user" required>
                 <i class='bx bxs-user'></i>
             </div>
             <div class="labelInput">
-                <input type="password" placeholder="Contraseña" required>
+                <input type="password" placeholder="Contraseña" name="pass" required>
                 <i class='bx bxs-lock-alt'></i>
             </div>
             <button type="submit" class="btn_ingresar">Ingresar</button>
