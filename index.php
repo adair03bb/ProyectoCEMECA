@@ -8,6 +8,13 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 </head>
+<?php
+session_start();
+if(!empty($_SESSION['tipo_usuario_id'])){
+    header('Location: controller/loginController.php');
+}else{
+session_destroy();
+?>
 <body>
     <header>
         <div class="logos">
@@ -47,6 +54,8 @@
             </div>
         </form>
     </div>
-    
 </body>
 </html>
+<?php
+}
+?>
