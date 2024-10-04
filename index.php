@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIGECA</title>
     <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="/css/css/all.min.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 </head>
@@ -55,6 +56,7 @@ session_destroy();
         </form>
     </div>
 </body>
+<script src="js/menu.js"></script>
 </html>
 <?php
 }
