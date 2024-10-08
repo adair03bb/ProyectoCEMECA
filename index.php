@@ -32,7 +32,6 @@ session_destroy();
            <!-- <img id="logoSS" src="img/sseguridad.png" alt="Logo SS">-->
         </div>
     </header>
-    
 <!--
     <div class="sigeca">
         <h1 class="titulos">SIGECA</h1>
