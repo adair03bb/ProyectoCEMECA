@@ -8,6 +8,24 @@ if ($_SESSION['tipo_usuario_id'] == 1) {
 <?php
     include_once 'layouts/nav.php';
 ?>
+<!-- Modal -->
+<div class="modal fade" id="cambiarPassword" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -19,7 +37,7 @@ if ($_SESSION['tipo_usuario_id'] == 1) {
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="../view/menuAdmin.php">Home</a></li>
+                            <li class="breadcrumb-item"><a href="../view/menuAdmin.php">Ir a Inicio</a></li>
                             <li class="breadcrumb-item active">Datos Personales</li>
                         </ol>
                     </div>
@@ -49,6 +67,7 @@ if ($_SESSION['tipo_usuario_id'] == 1) {
                                             <b style="color:#0b7300">Tipo Usuario</b>
                                             <span id="tipo_usuario_id" class="float-right badge badge-primary"></span>
                                         </li>
+                                        <button data-toggle="modal" data-target="#cambiarPassword" type="button" class="btn btn-block btn-outline-warning btn-sm">Cambiar Contraseña</button>
                                     </ul>
                                     <button class="edit btn btn-block bg-gradient-danger">Editar</button>
                                 </div>
@@ -60,7 +79,13 @@ if ($_SESSION['tipo_usuario_id'] == 1) {
                                     <h3 class="card-title">Editar Datos Personales</h3>
                                 </div>
                                 <div class="card-body">
-                                    <form class="form-horizontal">
+                                    <div class="alert alert-success text-center" id="editado" style='display:none;'>
+                                        <span><i class="fas fa-check m-1"></i>Editado</span>
+                                    </div>
+                                    <div class="alert alert-danger text-center" id="noeditado" style='display:none;'>
+                                        <span><i class="fas fa-times m-1"></i>Edición deshabilitada</span>
+                                    </div>
+                                    <form id="form-usuario" class="form-horizontal">
                                         <div class="form-group row">
                                             <label for="nombreInput" class="col-sm-2 col-form-label">Nombre</label>
                                             <div class="col-sm-10">
@@ -75,7 +100,7 @@ if ($_SESSION['tipo_usuario_id'] == 1) {
                                         </div>
                                         <div class="form-group row">
                                             <div class="offset-sm-2 col-sm-10 float-right">
-                                                <button type="button" id="guardar" class="btn btn-block btn-outline-success">Guardar</button>
+                                                <button type="submit" id="guardar" class="btn btn-block btn-outline-success">Guardar</button>
                                             </div>
                                         </div>
                                     </form>

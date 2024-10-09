@@ -3,14 +3,11 @@ $(document).ready(function() {
     var idusuario = $('#idusuario').val();
     var edit = false;
 
-    console.log('ID Usuario inicial:', idusuario); 
     buscar_usuario(idusuario);
 
     function buscar_usuario(dato) {
         funcion = 'buscar_usuario';
         $.post('../controller/userController.php', { dato, funcion }, (response) => {
-            console.log('Response for buscar_usuario:', response);
-
             const usuario = JSON.parse(response);
             if (usuario.length > 0) {
                 $('#nombre').html(usuario[0].nombre);
@@ -22,13 +19,9 @@ $(document).ready(function() {
     }
 
     $(document).on('click', '.edit', (e) => {
-        console.log('Botón Editar clickeado');
         funcion = 'capturar_datos';
         edit = true;
-
         $.post('../controller/userController.php', { funcion, idusuario }, (response) => {
-            console.log('Response for capturar_datos:', response);
-
             const usuario = JSON.parse(response);
             if (Array.isArray(usuario) && usuario.length > 0) {
                 $('#nombreInput').val(usuario[0].nombre || '');
@@ -36,5 +29,31 @@ $(document).ready(function() {
             }
         });
     });
-});
 
+    $('#form-usuario').submit(e => {
+        if (edit == true) {
+            let nombre = $('#nombreInput').val();
+            let usuario = $('#usuarioInput').val();
+            funcion = 'editar_usuario';
+            $.post('../controller/userController.php', { idusuario, funcion, nombre, usuario }, (response) => {
+                if (response.trim() == 'editado') {
+                    $('#editado').hide('slow');
+                    $('#editado').show(1000);
+                    $('#editado').hide(2000);
+                    $('#form-usuario').trigger('reset');
+                } else {
+                    console.log('Error al editar usuario:', response);
+                }
+                edit = false;
+                buscar_usuario(idusuario);
+            });
+        }
+        else{
+            $('#noeditado').hide('slow');
+            $('#noeditado').show(1000);
+            $('#noeditado').hide(2000);
+            $('#form-usuario').trigger('reset');
+        }
+        e.preventDefault();
+    });    
+});

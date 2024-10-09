@@ -20,5 +20,16 @@ class usuario{
         $this->objetos=$query->fetchall();
         return $this->objetos;
     }
+    function editar($idusuario, $nombre, $usuario) {
+        $sql = "UPDATE usuario SET nombre = :nombre, usuario = :usuario WHERE idusuario = :id";
+        $query = $this->acceso->prepare($sql);
+        $query->execute(array(':id' => $idusuario, ':nombre' => $nombre, ':usuario' => $usuario));
+            if ($query->rowCount() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
 }
 ?>
