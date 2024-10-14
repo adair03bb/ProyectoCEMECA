@@ -46,7 +46,7 @@ if ($_SESSION['tipo_usuario_id'] == 1) {
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fas fa-lock"></i></span>
                 </div>
-                <input id="newPassword" type="password" class="form-control" placeholder="Ingresa la contraseña nueva">
+                <input id="newPassword" type="text" class="form-control" placeholder="Ingresa la contraseña nueva">
             </div>
         </form>
       </div>
