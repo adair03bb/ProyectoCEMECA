@@ -43,4 +43,10 @@ if ($_POST['funcion'] == 'editar_usuario') {
         echo 'Error: objeto usuario no inicializado correctamente';
     }
 }
+if ($_POST['funcion'] == 'cambiar_contra') {
+    $idusuario = $_POST['idusuario'];
+    $oldPassword = $_POST['oldPassword'];
+    $newPassword = $_POST['newPassword'];
+    $usuario->cambiar_contra($idusuario, $oldPassword, $newPassword);
+}
 ?>

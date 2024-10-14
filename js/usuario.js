@@ -55,5 +55,27 @@ $(document).ready(function() {
             $('#form-usuario').trigger('reset');
         }
         e.preventDefault();
+    });
+    $('#form-pass').submit(e => {
+        e.preventDefault(); // Evitar que la página se recargue
+    
+        let oldPassword = $('#oldPassword').val();
+        let newPassword = $('#newPassword').val();
+        let idusuario = $('#idusuario').val(); // Asegúrate de que este campo tenga un valor
+        let funcion = 'cambiar_contra';
+    
+        $.post('../controller/userController.php', { idusuario, funcion, oldPassword, newPassword }, (response) => {
+            if (response.trim() == 'update') {
+                $('#update').hide('slow');
+                $('#update').show(1000);
+                $('#update').hide(2000);
+                $('#form-pass').trigger('reset');
+            }else{
+                $('#noupdate').hide('slow');
+                $('#noupdate').show(1000);
+                $('#noupdate').hide(2000);
+                $('#form-pass').trigger('reset');
+            }
+        });
     });    
 });

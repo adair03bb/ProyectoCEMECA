@@ -30,6 +30,19 @@ class usuario{
             return false;
         }
     }
-    
+    function cambiar_contra($idusuario, $oldPassword, $newPassword) {
+        $sql = "SELECT * FROM usuario WHERE idusuario = :id AND contrasena = :oldPassword";
+        $query = $this->acceso->prepare($sql);
+        $query->execute(array(':id' => $idusuario, ':oldPassword' => $oldPassword));
+        $this->objetos = $query->fetchAll();
+            if (!empty($this->objetos)) {
+            $sql = "UPDATE usuario SET contrasena = :newPassword WHERE idusuario = :id";
+            $query = $this->acceso->prepare($sql);
+            $query->execute(array(':id' => $idusuario, ':newPassword' => $newPassword));
+            echo 'update';
+        } else {
+            echo 'no update';
+        }
+    }   
 }
 ?>

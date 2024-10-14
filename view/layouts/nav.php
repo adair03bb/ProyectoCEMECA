@@ -34,7 +34,7 @@
 <!-- /.navbar -->
 
 <!-- Main Sidebar Container -->
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
+<aside class="main-sidebar" style="background-color: #001d3d;" class="sidebar-blue elevation-4">
   <!-- Brand Logo -->
   <a href="../view/menuAdmin.php" class="brand-link">
     <img src="../img/perfil.png"
@@ -65,11 +65,11 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
-        <li class="nav-header">Usuario</li>
+        <li class="nav-header" style="color: #FFF;">Usuario</li>
         <li class="nav-item">
           <a href="../view/editar_datos_personales.php" class="nav-link">
-            <i class="nav-icon fas fa-user-cog"></i>
-            <p>
+            <i style="color: #FFF;" class="nav-icon fas fa-user-cog"></i>
+            <p style="color: #FFF;">
               Datos Personales
             </p>
           </a>

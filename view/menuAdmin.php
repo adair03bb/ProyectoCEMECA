@@ -3,7 +3,7 @@ session_start();
 if($_SESSION['tipo_usuario_id']==1){
 include_once 'layouts/header.php';
 ?>
-  <title>Administración</title>
+  <title>Administrador</title>
   <!-- Tell the browser to be responsive to screen width -->
  <?php
  include_once 'layouts/nav.php';
@@ -19,7 +19,7 @@ include_once 'layouts/header.php';
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="#">Inicio</a></li>
               <li class="breadcrumb-item active">Blank Page</li>
             </ol>
           </div>
