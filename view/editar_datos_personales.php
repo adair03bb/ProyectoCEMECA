@@ -32,6 +32,9 @@ if ($_SESSION['tipo_usuario_id'] == 1) {
         <div class="alert alert-danger text-center" id="noupdate" style='display:none;'>
             <span><i class="fas fa-times m-1"></i>Error al actualizar la contraseña</span>
         </div>
+        <div class="alert alert-danger text-center" id="vacia" style='display:none;'>
+            <span><i class="fas fa-times m-1"></i>Error: No se permiten contraseñas vacías</span>
+        </div>
         <form id="form-pass">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
