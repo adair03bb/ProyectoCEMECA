@@ -2,10 +2,10 @@
 class conexion {
     private $servidor = "localhost";
     private $db = "sigeca";
-    private $puerto = "3307";
+    private $puerto = "3306";
     private $charset = "utf8";
     private $usuario = "root";
-    private $password = "";
+    private $password = "030803";
     public $pdo = null;
     private $atributos = [
         PDO::ATTR_CASE => PDO::CASE_LOWER,

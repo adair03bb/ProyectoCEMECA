@@ -14,6 +14,11 @@ $(document).ready(function() {
                 $('#usuario').html(usuario[0].usuario);
                 $('#estado').html(usuario[0].estado == 1 ? 'Activo' : 'Inactivo');
                 $('#tipo_usuario_id').html(usuario[0].tipo);
+                $('#avatar2').attr('src',usuario.avatar);
+                $('#avatar1').attr('alt',usuario.avatar);
+                $('#avatar3').attr('alt',usuario.avatar);
+                $('#avatar4').attr('alt',usuario.avatar);
+
             }
         });
     }
@@ -79,5 +84,36 @@ $(document).ready(function() {
                 $('#form-pass').trigger('reset');
             }
         });
-    });    
+    })
+$('#form-photo').submit(e => {
+    let formData = new FormData($('#form-photo')[0]);
+    $.ajax({
+        url: '../controller/userController.php',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        cache: false
+    }).done(function(response) {
+        try {
+            const json = JSON.parse(response);
+            if (json[0].alert == 'edit') {
+                $('#avatar2').attr('src', json[0].ruta);
+                $('#edit').hide('slow');
+                $('#edit').show(1000);
+                $('#edit').hide(2000);
+                $('#form-photo').trigger('reset');
+            } else {
+                $('#noedit').hide('slow');
+                $('#noedit').show(1000);
+                $('#noedit').hide(2000);
+                $('#form-photo').trigger('reset');
+            }
+        } catch (error) {
+            console.error('Error al analizar JSON:', error);
+        }
+    });
+    e.preventDefault();
+});
+
 });

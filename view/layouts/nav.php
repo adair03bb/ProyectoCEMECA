@@ -8,6 +8,8 @@
 <link rel="stylesheet" href="../css/adminlte.min.css">
 <!-- Google Font: Source Sans Pro -->
 <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
+
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
@@ -49,7 +51,7 @@
     <!-- Sidebar user (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
-        <img src="../img/perfil.png" class="img-circle elevation-2" alt="User Image">
+        <img id='avatar4' src="../img/perfil.png" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
         <a href="#" class="d-block">
@@ -65,12 +67,37 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
-        <li class="nav-header" style="color: #FFF;">Usuario</li>
-        <li class="nav-item">
+        <li class="nav-header" style="color: #a3b18a;">Usuario</li>
+          <li class="nav-item">
           <a href="../view/editar_datos_personales.php" class="nav-link">
             <i style="color: #FFF;" class="nav-icon fas fa-user-cog"></i>
-            <p style="color: #FFF;">
+            <p style="color: #00b4d8;">
               Datos Personales
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="../view/editar_datos_personales.php" class="nav-link">
+            <i style="color: #FFF;" class="nav-icon fas fa-users"></i>
+            <p style="color: #FFF;">
+              Administrar Usuarios.
+            </p>
+          </a>
+        </li>
+        <li class="nav-header" style="color: #FFF;">Carga y Muestreo de Datos</li>
+          <li class="nav-item">
+          <a href="../../mostrarExcel.php" class="nav-link">
+            <i style="color: #FFF;" class="nav-icon bi bi-person-badge-fill"></i>
+            <p style="color: #FFF;">
+              Evaluación Adolescentes.
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="../view/editar_datos_personales.php" class="nav-link">
+            <i style="color: #FFF;" class="nav-icon bi bi-person-vcard-fill"></i>
+            <p style="color: #FFF;">
+              Reevaluaciones
             </p>
           </a>
         </li>

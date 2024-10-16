@@ -19,7 +19,7 @@ if ($_SESSION['tipo_usuario_id'] == 1) {
       </div>
       <div class="modal-body">
         <div class="text-center">
-            <img src="../img/perfil.png" alt="" class="profile-user-img img-fluid img-circle">
+            <img id="avatar1" src="../img/perfil.png" alt="" class="profile-user-img img-fluid img-circle">
         </div>
         <div class="text-center">
             <b>
@@ -57,6 +57,45 @@ if ($_SESSION['tipo_usuario_id'] == 1) {
     </div>
   </div>
 </div>
+<div class="modal fade" id="cambioPhoto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Cambiar Avatar</h1>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center">
+            <img id="avatar2" src="../img/perfil.png" alt="" class="profile-user-img img-fluid img-circle">
+        </div>
+        <div class="text-center">
+            <b>
+                <?php echo $_SESSION['nombre']; ?>
+            </b>
+        </div>
+        <div class="alert alert-success text-center" id="edit" style='display:none;'>
+            <span><i class="fas fa-check m-1"></i>Se cambio al avatar correctamente</span>
+        </div>
+        <div class="alert alert-danger text-center" id="noedit" style='display:none;'>
+            <span><i class="fas fa-times m-1"></i>Error al cambiar el avatar</span>
+        </div>
+        <form id="form-photo" enctype="multipart/form-data">
+            <div class="input-group mb-3 ml-5 mt-2">
+                <input type="file" class="input-group" name="photo">
+                <input type="hidden" name="funcion" value="cambiar_photo">
+            </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn bg-gradient-primary" form="form-photo">Cambiar Avatar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -83,7 +122,10 @@ if ($_SESSION['tipo_usuario_id'] == 1) {
                         <div class="card card-success card-outline">
                             <div class="card-body box-profile">
                                 <div class="text-center">
-                                    <img src="../img/perfil.png" alt="" class="profile-user-img img-fluid img-circle">
+                                    <img id="avatar3" src="../img/perfil.png" alt="" class="profile-user-img img-fluid img-circle">
+                                </div>
+                                <div class="text-center mt-1">
+                                    <button type='button' data-toggle="modal" data-target="#cambioPhoto" class="btn btn-primary btn-sm">Cambiar Avatar</button>
                                 </div>
                                 <input id="idusuario" type="hidden" value="<?php echo $_SESSION['usuario']; ?>">
                                 <h3 id="nombre" class="profile-user-name text-center text-success">Nombre</h3>
@@ -153,5 +195,3 @@ if ($_SESSION['tipo_usuario_id'] == 1) {
 }
 ?>
 <script src="../js/usuario.js"></script>
-
-
