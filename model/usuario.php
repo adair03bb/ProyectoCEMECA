@@ -2,6 +2,7 @@
 include_once 'conexion.php';
 class usuario {
     var $objetos;
+    private $acceso;
     public function __construct() {
         $db = new conexion();
         $this->acceso = $db->pdo;
@@ -60,7 +61,7 @@ class usuario {
         $query->execute(array(':id' => $idusuario, ':nombre' => $nombre));
         
         if($query->rowCount() > 0) {
-            $_SESSION['avatar'] = $nombre; // Actualizar la sesión con el nuevo avatar
+            $_SESSION['avatar'] = $nombre;
             return true;
         }
         return false;
