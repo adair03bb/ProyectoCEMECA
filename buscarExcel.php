@@ -1,5 +1,8 @@
 <?php
-require 'conexion.php';
+require 'model/conexion.php';
+
+$conexion = new conexion();
+$pdo = $conexion->pdo;
 
 $columns = [
     'evaluacion',
@@ -64,7 +67,7 @@ $tables = "eval_adolescentes";
 
 $id = "evaluacion";
 
-$campo = isset($_POST['campo']) ? $mysqli->real_escape_string($_POST['campo']) : null;
+$campo = isset($_POST['campo']) ? $_POST['campo'] : null;
 
 /* FILTRADO */
 $where = '';
@@ -73,16 +76,15 @@ if ($campo != null) {
     $where = "WHERE (";
     $cont = count($columnsWhere);
     for ($i = 0; $i < $cont; $i++) {
-        $where .= $columnsWhere[$i] . " LIKE '%" . $campo . "%' OR ";
+        $where .= $columnsWhere[$i] . " LIKE :campo OR ";
     }
     $where = substr_replace($where, "", -4); // Para eliminar el último " OR "
     $where .= ")";
 }
 
-/* LIMIT*/
-
-$limit = isset($_POST['registros']) ? $mysqli->real_escape_string($_POST['registros']) : 10;
-$pagina = isset($_POST['pagina']) ? $mysqli->real_escape_string($_POST['pagina']) : 0;
+/* LIMIT */
+$limit = isset($_POST['registros']) ? (int)$_POST['registros'] : 10;
+$pagina = isset($_POST['pagina']) ? (int)$_POST['pagina'] : 0;
 
 if (!$pagina) {
     $inicio = 0;
@@ -91,25 +93,31 @@ if (!$pagina) {
     $inicio = ($pagina - 1) * $limit;
 }
 
-$sLimit = "LIMIT $inicio, $limit";
+$sLimit = "LIMIT :inicio, :limit";
 
-
-/*Consulta sql */
+/* Consulta SQL */
 $sql = "SELECT SQL_CALC_FOUND_ROWS " . implode(", ", $columns) . " FROM $tables $where $sLimit";
-$resultado = $mysqli->query($sql);
-$num_rows = $resultado->num_rows;
+$stmt = $pdo->prepare($sql);
+
+if ($campo != null) {
+    $stmt->bindValue(':campo', '%' . $campo . '%', PDO::PARAM_STR);
+}
+$stmt->bindValue(':inicio', $inicio, PDO::PARAM_INT);
+$stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+$stmt->execute();
+$resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$num_rows = count($resultado);
 
 /* Total registros filtrados */
 $sqlFiltro = "SELECT FOUND_ROWS()";
-$resFiltro = $mysqli->query($sqlFiltro);
-$row_filtro = $resFiltro->fetch_array();
+$stmtFiltro = $pdo->query($sqlFiltro);
+$row_filtro = $stmtFiltro->fetch(PDO::FETCH_NUM);
 $totalFiltro = $row_filtro[0];
 
-
-/* Total registros filtrados */
-$sqlTotal = "SELECT count($id) FROM $tables";
-$resTotal = $mysqli->query($sqlTotal);
-$row_total = $resTotal->fetch_array();
+/* Total registros */
+$sqlTotal = "SELECT COUNT($id) FROM $tables";
+$stmtTotal = $pdo->query($sqlTotal);
+$row_total = $stmtTotal->fetch(PDO::FETCH_NUM);
 $totalRegistros = $row_total[0];
 
 $output = [];
@@ -119,68 +127,16 @@ $output['data'] = '';
 $output['paginacion'] = '';
 
 if ($num_rows > 0) {
-    while ($row = $resultado->fetch_assoc()) {
+    foreach ($resultado as $row) {
         $output['data'] .= '<tr>';
-        $output['data'] .= '<td>' . $row['evaluacion'] . '</td>';
-        $output['data'] .= '<td>' . $row['reevaluacion'] . '</td>';
-        $output['data'] .= '<td>' . $row['carpeta_administrativa'] . '</td>';
-        $output['data'] .= '<td>' . $row['juzgado'] . '</td>';
-        $output['data'] .= '<td>' . $row['fecha_recepcion'] . '</td>';
-        $output['data'] .= '<td>' . $row['hora_recepcion'] . '</td>';
-        $output['data'] .= '<td>' . $row['fuero'] . '</td>';
-        $output['data'] .= '<td>' . $row['fiscalia'] . '</td>';
-        $output['data'] .= '<td>' . $row['agencia'] . '</td>';
-        $output['data'] .= '<td>' . $row['ministerio_publico'] . '</td>';
-        $output['data'] .= '<td>' . $row['turno'] . '</td>';
-        $output['data'] .= '<td>' . $row['telefono'] . '</td>';
-        $output['data'] .= '<td>' . $row['email'] . '</td>';
-        $output['data'] .= '<td>' . $row['carpeta_investigacion'] . '</td>';
-        $output['data'] .= '<td>' . $row['falla_tecnica'] . '</td>';
-        $output['data'] .= '<td>' . $row['nuc'] . '</td>';
-        $output['data'] .= '<td>' . $row['nic'] . '</td>';
-        $output['data'] .= '<td>' . $row['fecha_disposicion'] . '</td>';
-        $output['data'] .= '<td>' . $row['hora_disposicion'] . '</td>';
-        $output['data'] .= '<td>' . $row['puesta_disposicion'] . '</td>';
-        $output['data'] .= '<td>' . $row['paterno'] . '</td>';
-        $output['data'] .= '<td>' . $row['materno'] . '</td>';
-        $output['data'] .= '<td>' . $row['nombre'] . '</td>';
-        $output['data'] .= '<td>' . $row['curp'] . '</td>';
-        $output['data'] .= '<td>' . $row['edad'] . '</td>';
-        $output['data'] .= '<td>' . $row['genero'] . '</td>';
-        $output['data'] .= '<td>' . $row['municipio'] . '</td>';
-        $output['data'] .= '<td>' . $row['colonia'] . '</td>';
-        $output['data'] .= '<td>' . $row['calle'] . '</td>';
-        $output['data'] .= '<td>' . $row['numero'] . '</td>';
-        $output['data'] .= '<td>' . $row['municipio_delito'] . '</td>';
-        $output['data'] .= '<td>' . $row['colonia_delito'] . '</td>';
-        $output['data'] .= '<td>' . $row['descripcion_delito'] . '</td>';
-        $output['data'] .= '<td>' . $row['catalogo1'] . '</td>';
-        $output['data'] .= '<td>' . $row['catalogo2'] . '</td>';
-        $output['data'] .= '<td>' . $row['catalogo3'] . '</td>';
-        $output['data'] .= '<td>' . $row['catalogo4'] . '</td>';
-        $output['data'] .= '<td>' . $row['subdireccion'] . '</td>';
-        $output['data'] .= '<td>' . $row['distrito_judicial'] . '</td>';
-        $output['data'] .= '<td>' . $row['evaluador'] . '</td>';
-        $output['data'] .= '<td>' . $row['tipo_atencion'] . '</td>';
-        $output['data'] .= '<td>' . $row['tutor'] . '</td>';
-        $output['data'] .= '<td>' . $row['fecha_entrevista'] . '</td>';
-        $output['data'] .= '<td>' . $row['hora_entrevista'] . '</td>';
-        $output['data'] .= '<td>' . $row['defensor'] . '</td>';
-        $output['data'] .= '<td>' . $row['tipo_riesgo'] . '</td>';
-        $output['data'] .= '<td>' . $row['riesgo_168'] . '</td>';
-        $output['data'] .= '<td>' . $row['riesgo_169'] . '</td>';
-        $output['data'] .= '<td>' . $row['riesgo_170'] . '</td>';
-        $output['data'] .= '<td>' . $row['fecha_envio'] . '</td>';
-        $output['data'] .= '<td>' . $row['hora_envio'] . '</td>';
-        $output['data'] .= '<td>' . $row['estado'] . '</td>';
-        $output['data'] .= '<td>' . $row['verificado'] . '</td>';
-        $output['data'] .= '<td>' . $row['tipo_verificacion'] . '</td>';
-        $output['data'] .= '<td>' . $row['observaciones'] . '</td>';
+        foreach ($columns as $column) {
+            $output['data'] .= '<td>' . $row[$column] . '</td>';
+        }
         $output['data'] .= '</tr>';
     }
 } else {
     $output['data'] .= '<tr>';
-    $output['data'] .= '<td colspan="7">Sin resultados</td>';
+    $output['data'] .= '<td colspan="' . count($columns) . '">Sin resultados</td>';
     $output['data'] .= '</tr>';
 }
 
@@ -210,6 +166,5 @@ if ($output['totalRegistros'] > 0) {
     $output['paginacion'] .= '</ul>';
     $output['paginacion'] .= '</nav>';
 }
-
 
 echo json_encode($output, JSON_UNESCAPED_UNICODE);

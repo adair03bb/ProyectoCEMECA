@@ -5,6 +5,28 @@ include "model/conexion.php";
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
+// SweetAlert
+function generateSweetAlert($title, $text, $icon, $redirectUrl) {
+    return "
+    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        Swal.fire({
+            title: '$title',
+            text: '$text',
+            icon: '$icon',
+            confirmButtonText: 'OK'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = 'mostrarExcel.php';
+            }
+        });
+    });
+    </script>
+    ";
+}
+
+
 if (isset($_POST['submit'])) {
     if (isset($_FILES['archivoExcel']) && $_FILES['archivoExcel']['error'] == 0) {
         $archivoTmp = $_FILES['archivoExcel']['tmp_name'];
@@ -18,6 +40,9 @@ if (isset($_POST['submit'])) {
 
             $numeroFilas = $hojaActual->getHighestDataRow();
 
+            $conexion = new conexion();
+            $pdo = $conexion->pdo;
+
             $sql = "INSERT INTO eval_adolescentes (
                 evaluacion, reevaluacion, carpeta_administrativa, juzgado, fecha_recepcion, hora_recepcion, 
                 fuero, fiscalia, agencia, ministerio_publico, turno, telefono, email, carpeta_investigacion, 
@@ -28,7 +53,7 @@ if (isset($_POST['submit'])) {
                 tutor, fecha_entrevista, hora_entrevista, defensor, tipo_riesgo, riesgo_168, 
                 riesgo_169, riesgo_170, fecha_envio, hora_envio, estado, verificado, 
                 tipo_verificacion, observaciones) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? , ?, ?)";
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             $stmt = $pdo->prepare($sql);
 
@@ -164,76 +189,25 @@ if (isset($_POST['submit'])) {
                    
                     continue;
                 }
-                $stmt->bind_param(
-                    'sssssssssssssssssssssssssssssssssssssssssssssssssssssss',
-                    $evaluacion,
-                    $reevaluacion,
-                    $carpeta_administrativa,
-                    $juzgado,
-                    $fecha_recepcion,
-                    $hora_recepcion,
-                    $fuero,
-                    $fiscalia,
-                    $agencia,
-                    $ministerio_publico,
-                    $turno,
-                    $telefono,
-                    $email,
-                    $carpeta_investigacion,
-                    $falla_tecnica,
-                    $nuc,
-                    $nic,
-                    $fecha_disposicion,
-                    $hora_disposicion,
-                    $puesta_disposicion,
-                    $paterno,
-                    $materno,
-                    $nombre,
-                    $curp,
-                    $edad,
-                    $genero,
-                    $municipio,
-                    $colonia,
-                    $calle,
-                    $numero,
-                    $municipio_delito,
-                    $colonia_delito,
-                    $descripcion_delito,
-                    $catalogo1,
-                    $catalogo2,
-                    $catalogo3,
-                    $catalogo4,
-                    $subdireccion,
-                    $distrito_judicial,
-                    $evaluador,
-                    $tipo_atencion,
-                    $tutor,
-                    $fecha_entrevista,
-                    $hora_entrevista,
-                    $defensor,
-                    $tipo_riesgo,
-                    $riesgo_168,
-                    $riesgo_169,
-                    $riesgo_170,
-                    $fecha_envio,
-                    $hora_envio,
-                    $estado,
-                    $verificado,
-                    $tipo_verificacion,
-                    $observaciones
-                );
-               
-                $stmt->execute();
+                $stmt->execute([
+                    $evaluacion, $reevaluacion, $carpeta_administrativa, $juzgado, $fecha_recepcion, 
+                    $hora_recepcion, $fuero, $fiscalia, $agencia, $ministerio_publico, $turno, 
+                    $telefono, $email, $carpeta_investigacion, $falla_tecnica, $nuc, $nic, 
+                    $fecha_disposicion, $hora_disposicion, $puesta_disposicion, $paterno, $materno, 
+                    $nombre, $curp, $edad, $genero, $municipio, $colonia, $calle, $numero, 
+                    $municipio_delito, $colonia_delito, $descripcion_delito, $catalogo1, $catalogo2, 
+                    $catalogo3, $catalogo4, $subdireccion, $distrito_judicial, $evaluador, 
+                    $tipo_atencion, $tutor, $fecha_entrevista, $hora_entrevista, $defensor, 
+                    $tipo_riesgo, $riesgo_168, $riesgo_169, $riesgo_170, $fecha_envio, $hora_envio, 
+                    $estado, $verificado, $tipo_verificacion, $observaciones
+                ]);
             }
 
-            $stmt->close();
-            $pdo->close();
-
-            echo "Archivo procesado exitosamente!";
+            echo generateSweetAlert('¡Éxito!', 'Archivo procesado exitosamente!', 'success', 'mostralExcel2hoja.php');
         } else {
-            echo "Por favor, sube un archivo de Excel válido (.xlsx, .xls).";
+            echo generateSweetAlert('Error', 'Por favor, sube un archivo de Excel válido (.xlsx, .xls).', 'error', 'mostralExcel2hoja.php');
         }
     } else {
-        echo "Hubo un error al subir el archivo.";
+        echo generateSweetAlert('Error', 'Hubo un error al subir el archivo.', 'error', 'mostralExcel2hoja.php');
     }
 }

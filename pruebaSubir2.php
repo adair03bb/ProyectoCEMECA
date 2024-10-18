@@ -1,6 +1,6 @@
 <?php
 require 'vendor/autoload.php';
-require 'conexion.php';
+require 'model/conexion.php';
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
@@ -18,7 +18,7 @@ function generateSweetAlert($title, $text, $icon, $redirectUrl) {
             confirmButtonText: 'OK'
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = '$redirectUrl';
+                window.location.href = 'mostrarExcel2hoja.php';
             }
         });
     });
@@ -26,20 +26,22 @@ function generateSweetAlert($title, $text, $icon, $redirectUrl) {
     ";
 }
 
-
 if (isset($_POST['submit'])) {
-    
     if (isset($_FILES['archivoExcel']) && $_FILES['archivoExcel']['error'] == 0) {
         $archivoTmp = $_FILES['archivoExcel']['tmp_name'];
         $nombreArchivo = $_FILES['archivoExcel']['name'];
         $extension = pathinfo($nombreArchivo, PATHINFO_EXTENSION);
-       
+
         if ($extension == 'xlsx' || $extension == 'xls') {
            
             $documento = IOFactory::load($archivoTmp);
-            $hojaActual = $documento->getSheet(1);
-         
+            $hojaActual = $documento->getSheet(1); 
+
             $numeroFilas = $hojaActual->getHighestDataRow();
+
+            $conexion = new conexion();
+            $pdo = $conexion->pdo;
+
             $sql = "INSERT INTO reevaluaciones (
                 evaluacion, reevaluacion, carpeta_administrativa, juzgado, fecha_recepcion, hora_recepcion, 
                 fuero, fiscalia, agencia, juez_control, turno, telefono, email, carpeta_investigacion, 
@@ -52,8 +54,8 @@ if (isset($_POST['submit'])) {
                 tipo_verificacion, observaciones) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? , ?, ?)";
 
-            $stmt = $mysqli->prepare($sql);
-            for ($indiceFila = 2; $indiceFila <= $numeroFilas; $indiceFila++) {
+        $stmt = $pdo->prepare($sql);
+        for ($indiceFila = 2; $indiceFila <= $numeroFilas; $indiceFila++) {
                 $evaluacion = $hojaActual->getCell('A' . $indiceFila)->getValue();
                 $reevaluacion = $hojaActual->getCell('B' . $indiceFila)->getValue();
                 $carpeta_administrativa = $hojaActual->getCell('C' . $indiceFila)->getValue();
@@ -185,8 +187,8 @@ if (isset($_POST['submit'])) {
                 ) {
                     continue;
                 }
-                $stmt->bind_param(
-                    'sssssssssssssssssssssssssssssssssssssssssssssssssssssss',
+                $stmt->execute(
+                    [
                     $evaluacion,
                     $reevaluacion,
                     $carpeta_administrativa,
@@ -242,14 +244,8 @@ if (isset($_POST['submit'])) {
                     $verificado,
                     $tipo_verificacion,
                     $observaciones
-                );
-               
-                $stmt->execute();
+                ]);
             }
-
-            $stmt->close();
-            $mysqli->close();
-
              echo generateSweetAlert('¡Éxito!', 'Archivo procesado exitosamente!', 'success', 'mostralExcel2hoja.php');
         } else {
             echo generateSweetAlert('Error', 'Por favor, sube un archivo de Excel válido (.xlsx, .xls).', 'error', 'mostralExcel2hoja.php');
