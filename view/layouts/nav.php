@@ -67,19 +67,19 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
-        <li class="nav-header" style="color: #a3b18a;">Usuario</li>
+        <li class="nav-header" style="color: #FFF;">Usuario</li>
           <li class="nav-item">
           <a href="../view/editar_datos_personales.php" class="nav-link">
-            <i style="color: #FFF;" class="nav-icon fas fa-user-cog"></i>
-            <p style="color: #00b4d8;">
+            <i style="color: #a3b18a;" class="nav-icon fas fa-user-cog"></i>
+            <p style="color: #a3b18a;">
               Datos Personales
             </p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="../view/editar_datos_personales.php" class="nav-link">
-            <i style="color: #FFF;" class="nav-icon fas fa-users"></i>
-            <p style="color: #FFF;">
+          <a href="../view/adm_usuarios.php" class="nav-link">
+            <i style="color: #a3b18a;" class="nav-icon fas fa-users"></i>
+            <p style="color: #a3b18a;">
               Administrar Usuarios.
             </p>
           </a>
@@ -87,16 +87,16 @@
         <li class="nav-header" style="color: #FFF;">Carga y Muestreo de Datos</li>
           <li class="nav-item">
           <a href="../../mostrarExcel.php" class="nav-link">
-            <i style="color: #FFF;" class="nav-icon bi bi-person-badge-fill"></i>
-            <p style="color: #FFF;">
+            <i style="color: #a3b18a;" class="nav-icon bi bi-person-badge-fill"></i>
+            <p style="color: #a3b18a;">
               Evaluación Adolescentes.
             </p>
           </a>
         </li>
         <li class="nav-item">
           <a href="../view/editar_datos_personales.php" class="nav-link">
-            <i style="color: #FFF;" class="nav-icon bi bi-person-vcard-fill"></i>
-            <p style="color: #FFF;">
+            <i style="color: #a3b18a;" class="nav-icon bi bi-person-vcard-fill"></i>
+            <p style="color: #a3b18a;">
               Reevaluaciones
             </p>
           </a>
