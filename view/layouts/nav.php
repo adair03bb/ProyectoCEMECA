@@ -1,6 +1,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- Font Awesome -->
+<!-- Font Awesome --> 
 <link rel="stylesheet" href="../css/css/all.min.css">
 <!-- Ionicons -->
 <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
@@ -27,7 +27,7 @@
     <li class="nav-item d-none d-sm-inline-block">
       <a href="#" class="nav-link">Contact</a>
     </li>
-  </ul>
+  </ul>-->
   <!-- Right navbar links -->
   <ul class="navbar-nav ml-auto">
       <a href="../controller/logout.php">Cerrar Sesión</a>
@@ -43,7 +43,7 @@
          alt="AdminLTE Logo"
          class="brand-image img-circle elevation-3"
          style="opacity: .8">
-    <span class="brand-text font-weight-light">SIGECA</span>
+    <span class="brand-text font-weight-light" style="color: #FFF;">SIGECA</span>
   </a>
 
   <!-- Sidebar -->
@@ -53,8 +53,8 @@
       <div class="image">
         <img id='avatar4' src="../img/perfil.png" class="img-circle elevation-2" alt="User Image">
       </div>
-      <div class="info">
-        <a href="#" class="d-block">
+      <div class="info" >
+        <a href="#" class="d-block" style="color: #FFF;">
           <?php
               echo$_SESSION['nombre'];
           ?>
@@ -80,36 +80,54 @@
           <a href="../view/adm_usuarios.php" class="nav-link">
             <i style="color: #a3b18a;" class="nav-icon fas fa-users"></i>
             <p style="color: #a3b18a;">
-              Administrar Usuarios.
+              Administrar Usuarios
             </p>
           </a>
         </li>
         <li class="nav-header" style="color: #FFF;">Carga y Muestreo de Datos</li>
           <li class="nav-item">
-          <a href="../../mostrarExcel.php" class="nav-link">
-            <i style="color: #a3b18a;" class="nav-icon bi bi-person-badge-fill"></i>
+          <a href="../view/mostrarExcel.php" class="nav-link">
+          <i style="color: #a3b18a;" class="nav-icon bi bi-person-badge-fill"></i>
             <p style="color: #a3b18a;">
-              Evaluación Adolescentes.
+              Evaluación Adolescentes
             </p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="../view/editar_datos_personales.php" class="nav-link">
+          <a href="../view/mostrarExcel2hoja.php" class="nav-link">
             <i style="color: #a3b18a;" class="nav-icon bi bi-person-vcard-fill"></i>
             <p style="color: #a3b18a;">
               Reevaluaciones
             </p>
           </a>
         </li>
-        <li class="nav-header">EXAMPLES</li>
-        <li class="nav-item">
-          <a href="../gallery.html" class="nav-link">
-            <i class="nav-icon far fa-image"></i>
-            <p>
-              Gallery
+        <li class="nav-header" style="color: #FFF;">Reportes</li>
+          <li class="nav-item">
+          <a href="../view/reporteProductividad.php" class="nav-link">
+            <i style="color: #a3b18a;" class="nav-icon bi bi-card-checklist"></i>
+            <p style="color: #a3b18a;">
+              Reporte de Productividad
             </p>
           </a>
         </li>
+        <li class="nav-item">
+          <a href="../view/estadisticasMensuales.php" class="nav-link">
+            <i style="color: #a3b18a;" class="nav-icon bi bi-calendar-week-fill"></i>
+            <p style="color: #a3b18a;">
+              Estadísticas Mensuales
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="../view/reporteIndicadores.php" class="nav-link">
+            <i style="color: #a3b18a;" class="nav-icon bi bi-clipboard-data"></i>
+            <p style="color: #a3b18a;">
+              Reportes de Indicadores
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-header" style="color: #FFF;">Gráficas</li>
       </ul>
     </nav>
     <!-- /.sidebar-menu -->

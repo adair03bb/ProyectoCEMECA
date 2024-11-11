@@ -1,0 +1,72 @@
+/* Estilos para el menú lateral (sidebar) */
+.sidebar {
+    position: fixed;  /* El menú queda fijo a la izquierda */
+    top: 0;
+    left: 0;
+    width: 250px;  /* Ajusta el ancho según lo necesites */
+    height: 100%;  /* Ocupa toda la altura de la pantalla */
+    background-color: #001f3f;  /* Color de fondo del menú lateral */
+    z-index: 1000;  /* Se asegura de que el menú esté visible, pero no sobre el contenido */
+    padding-top: 20px;  /* Añadir espacio superior para el contenido */
+    color: white;
+}
+
+/* Estilos para el contenedor principal del contenido */
+.content-wrapper {
+    margin-left: 250px;  /* Desplaza el contenido hacia la derecha para no quedar solapado con el menú */
+    padding: 20px;  /* Asegura un espacio adecuado alrededor del contenido */
+    position: relative;  
+    z-index: 1;  /* El contenido se sitúa por encima del fondo */
+}
+
+/* Ajuste para el texto dentro del menú */
+.sidebar a {
+    color: #00a8ff;
+    text-decoration: none;
+    font-size: 16px;
+    display: block;
+    padding: 10px 20px;
+}
+
+/* Estilos para el nombre y avatar dentro del menú */
+.navbar-nav {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.navbar-nav img {
+    border-radius: 50%;  /* Para que la imagen del perfil sea circular */
+    margin-bottom: 10px;
+    width: 80px;
+    height: 80px;
+}
+
+.navbar-nav a {
+    color: #ffffff;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.navbar-nav a:hover {
+    color: #00a8ff;
+}
+
+/* Para cuando ocultes el menú lateral */
+.sidebar-hidden .content-wrapper {
+    margin-left: 0;  /* El contenido ocupará todo el ancho de la pantalla */
+}
+
+/* Breadcrumb y encabezados */
+.breadcrumb {
+    background-color: transparent;
+}
+
+.breadcrumb-item a {
+    color: #007bff;
+}
+
+.breadcrumb-item.active {
+    color: #6c757d;
+}

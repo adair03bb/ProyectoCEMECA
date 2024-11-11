@@ -1,0 +1,90 @@
+/* Estilos base para toda la página */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f6f9; /* Fondo claro */
+}
+
+/* Contenedor de la barra lateral */
+.sidebar {
+    width: 250px;
+    background-color: #0d6efd;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+    padding-top: 20px;
+    color: #fff;
+}
+
+/* Contenedor principal que deja espacio para la barra lateral */
+.container-main {
+    margin-left: 250px;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Título de la sección */
+h2 {
+    margin-bottom: 30px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Tarjetas de reporte para "Reporte de Evaluador" y "Reporte de Supervisor" */
+.report-card {
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background-color: #f8f9fa;
+    font-weight: bold;
+    padding: 10px 15px;
+    text-align: center;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+/* Estilos de formulario */
+.form-control {
+    margin-bottom: 15px;
+}
+
+.form-row .col {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Botón de "Generar Reporte" */
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    width: 100%;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}

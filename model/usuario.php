@@ -23,7 +23,7 @@ class usuario {
         $this->objetos=$query->fetchall();
         
         if(!empty($this->objetos)) {
-            $_SESSION['avatar'] = $this->objetos[0]->avatar; // Actualizar la sesión con el avatar actual
+            $_SESSION['avatar'] = $this->objetos[0]->avatar;
         }
         
         return $this->objetos;
