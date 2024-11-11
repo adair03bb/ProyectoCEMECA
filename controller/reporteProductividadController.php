@@ -15,66 +15,21 @@ class MYPDF extends FPDF {
         $this->SetFont('Arial', 'I', 8);
         $this->Cell(0, 10, utf8_decode('Página ') . $this->PageNo(), 0, 0, 'C');
     }
-
-    // Agregamos el método NbLines para calcular el número de líneas
-    public function NbLines($w, $txt) {
-        // Computa el número de líneas que tomará un MultiCell de ancho w
-        $cw = &$this->CurrentFont['cw'];
-        if($w==0)
-            $w = $this->w-$this->rMargin-$this->x;
-        $wmax = ($w-2*$this->cMargin)*1000/$this->FontSize;
-        $s = str_replace("\r",'',$txt);
-        $nb = strlen($s);
-        if($nb>0 && $s[$nb-1]=="\n")
-            $nb--;
-        $sep = -1;
-        $i = 0;
-        $j = 0;
-        $l = 0;
-        $nl = 1;
-        while($i<$nb) {
-            $c = $s[$i];
-            if($c=="\n") {
-                $i++;
-                $sep = -1;
-                $j = $i;
-                $l = 0;
-                $nl++;
-                continue;
-            }
-            if($c==' ')
-                $sep = $i;
-            $l += $cw[$c] ?? 1000;
-            if($l>$wmax) {
-                if($sep==-1) {
-                    if($i==$j)
-                        $i++;
-                }
-                else
-                    $i = $sep+1;
-                $sep = -1;
-                $j = $i;
-                $l = 0;
-                $nl++;
-            }
-            else
-                $i++;
-        }
-        return $nl;
-    }
 }
 
 class ReporteProductividadController {
     private $model;
     
-    private const COL_TIPO_WIDTH = 90;
-    private const COL_PORCENTAJE_WIDTH = 50;
-    private const COL_TOTALES_WIDTH = 50;
+    // Ajustamos los anchos de las columnas para que coincidan mejor con la imagen
+    private const COL_TIPO_WIDTH = 120;     // Aumentado para texto largo
+    private const COL_PORCENTAJE_WIDTH = 35; // Reducido ya que solo contiene porcentajes
+    private const COL_TOTALES_WIDTH = 35;    // Reducido ya que solo contiene números
     private const TABLE_WIDTH = 190;
 
     public function __construct() {
         $this->model = new ReporteProductividadModel();
     }
+    
 
     public function generarReportePDF() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -107,7 +62,6 @@ class ReporteProductividadController {
                        utf8_decode(' Hasta el: ') . date("d-M-Y", strtotime($fechaFin)), 0, 1);
             $pdf->Ln(10);
 
-            // Crear tablas con datos de resumen
             $this->crearTabla($pdf, 'Tipo de Atención', 
                              ['Tipo de Atención', 'Porcentaje', 'Totales'], 
                              $resumenAtencion);
@@ -149,25 +103,36 @@ class ReporteProductividadController {
 
         foreach ($data as $row) {
             $pdf->SetX($leftMargin);
-            
-            // Calcular altura necesaria
             $texto = utf8_decode($row->tipo ?? 'N/A');
-            $lineHeight = 6;
-            $nbLines = max(1, $pdf->NbLines(self::COL_TIPO_WIDTH, $texto));
-            $height = $lineHeight * $nbLines;
 
-            // Almacenar posición inicial
+            // Calcular altura necesaria
+            $pdf->SetFont('Arial', '', 10);
+            $altura = 8; // Altura mínima
+            
+            // Obtener dimensiones del texto
+            $longitud = strlen($texto);
+            $longitudPorLinea = 60; // Caracteres aproximados por línea
+            $lineasNecesarias = ceil($longitud / $longitudPorLinea);
+            $alturaCalculada = max($altura, $lineasNecesarias * 6);
+
+            // Guardar posición
             $x = $pdf->GetX();
             $y = $pdf->GetY();
 
-            // Dibujar celda con el tipo
-            $pdf->MultiCell(self::COL_TIPO_WIDTH, $lineHeight, $texto, 1, 'L', $fill);
+            // Dibujar celda con múltiples líneas
+            $pdf->MultiCell(self::COL_TIPO_WIDTH, 6, $texto, 1, 'L', $fill);
             
-            // Restaurar posición y dibujar las otras celdas
+            // Recuperar posición final Y
+            $nuevaY = $pdf->GetY();
+            $alturaReal = $nuevaY - $y;
+            
+            // Volver a la posición correcta para las siguientes celdas
             $pdf->SetXY($x + self::COL_TIPO_WIDTH, $y);
-            $pdf->Cell(self::COL_PORCENTAJE_WIDTH, $height, 
+            
+            // Dibujar las celdas de porcentaje y totales con la misma altura
+            $pdf->Cell(self::COL_PORCENTAJE_WIDTH, $alturaReal, 
                       number_format($row->porcentaje ?? 0, 2) . '%', 1, 0, 'C', $fill);
-            $pdf->Cell(self::COL_TOTALES_WIDTH, $height, 
+            $pdf->Cell(self::COL_TOTALES_WIDTH, $alturaReal, 
                       $row->total ?? '0', 1, 1, 'C', $fill);
 
             $totalSum += $row->total ?? 0;
@@ -186,7 +151,13 @@ class ReporteProductividadController {
     }
 
     public function mostrarFormulario() {
-        echo "Formulario de reportes";
+        session_start();
+        
+        // Obtener los evaluadores del modelo para la vista
+        $_SESSION['evaluadores'] = $this->model->obtenerEvaluadores();
+
+        // Cargar la vista del formulario
+        require_once '../view/reporteProductividad.php';
     }
 }
 

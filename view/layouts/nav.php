@@ -103,8 +103,8 @@
         </li>
         <li class="nav-header" style="color: #FFF;">Reportes</li>
           <li class="nav-item">
-          <a href="../view/reporteProductividad.php" class="nav-link">
-            <i style="color: #a3b18a;" class="nav-icon bi bi-card-checklist"></i>
+          <a href="../controller/reporteProductividadController.php?action=mostrarFormulario" class="nav-link">
+          <i style="color: #a3b18a;" class="nav-icon bi bi-card-checklist"></i>
             <p style="color: #a3b18a;">
               Reporte de Productividad
             </p>
