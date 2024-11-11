@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 if ($_SESSION['tipo_usuario_id'] == 1) {
     include_once 'layouts/header.php';
     include_once 'layouts/nav.php';
