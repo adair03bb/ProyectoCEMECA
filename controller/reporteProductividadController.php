@@ -43,6 +43,13 @@ class ReporteProductividadController {
     public function __construct() {
         $this->model = new ReporteProductividadModel();
     }
+    public function mostrarFormulario() {
+        session_start();
+        // Cargar evaluadores de eval_adolescentes y reevaluadores
+        $_SESSION['evaluadores_adolescentes'] = $this->model->obtenerEvaluadores();
+        $_SESSION['evaluadores_reevaluadores'] = $this->model->obtenerEvaluadoresR();
+        require_once '../view/reporteProductividad.php';
+    }
 
     public function generarReportePDF() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -81,7 +88,7 @@ class ReporteProductividadController {
 
             $pdf->SetFont('Arial', 'I', 10);
             $pdf->Cell(0, 10, utf8_decode('Fuente de datos: Tabla - Evaluación Adolescentes'), 0, 1, 'L');
-            $pdf->Ln(10);
+            $pdf->Ln(1);
 
             $this->crearTabla($pdf, 'Tipo de Atención', 
                              ['Tipo de Atención', 'Porcentaje', 'Totales'], 
@@ -98,8 +105,66 @@ class ReporteProductividadController {
             $this->crearTabla($pdf, 'Tipo de Verificación', 
                              ['Tipo de Verificación', 'Porcentaje', 'Totales'], 
                              $resumenTipoVerificacion);
+            $pdf->Output('D', 'Reporte_Evaluador.pdf');
+        }
+    }
 
-            $pdf->Output();
+
+    public function generarReportePDFR() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id = $_POST['id'] ?? '';
+            $fechaInicio = $_POST['fechaInicio'] ?? '';
+            $fechaFin = $_POST['fechaFin'] ?? '';
+
+            if (empty($id) || empty($fechaInicio) || empty($fechaFin)) {
+                echo "Por favor, complete todos los campos.";
+                return;
+            }
+
+            $resumenAtencionR = $this->model->obtenerResumenPorTipoAtencionR($id, $fechaInicio, $fechaFin);
+            $resumenRiesgoR = $this->model->obtenerResumenPorTipoRiesgoR($id, $fechaInicio, $fechaFin);
+            $resumenAgenciaR = $this->model->obtenerResumenPorAgenciaR($id, $fechaInicio, $fechaFin);
+            $resumenTipoVerificacionR = $this->model->obtenerResumenPorTipoVerificacionR($id, $fechaInicio, $fechaFin);
+
+            if (empty($resumenAtencionR) && empty($resumenRiesgoR) && empty($resumenAgenciaR) && empty($resumenTipoVerificacionR)) {
+                echo "No hay datos para el reporte.";
+                return;
+            }
+
+            $pdf = new MYPDF();
+            $pdf->AddPage();
+            $pdf->SetFont('Arial', 'B', 12);
+            $pdf->SetTextColor(50, 50, 50);
+            $pdf->SetMargins(10, 10, 10);
+
+            setlocale(LC_TIME, 'es_ES.UTF-8', 'es_ES', 'Spanish_Spain.1252');
+
+            // Información general centrada
+            $pdf->Ln(5); // Espacio adicional
+            $pdf->Cell(0, 10, utf8_decode('Evaluador: ') . utf8_decode($id), 0, 1, 'C');
+            $pdf->Cell(95, 10, utf8_decode('Desde el: ') . strftime('%d-%b-%Y', strtotime($fechaInicio)), 0, 0, 'L'); // Fecha inicio a la izquierda
+            $pdf->Cell(95, 10, utf8_decode('Hasta el: ') . strftime('%d-%b-%Y', strtotime($fechaFin)), 0, 1, 'R'); // Fecha fin a la derecha
+
+            $pdf->SetFont('Arial', 'I', 10);
+            $pdf->Cell(0, 10, utf8_decode('Fuente de datos: Tabla - Evaluación Adolescentes'), 0, 1, 'L');
+            $pdf->Ln(1);
+
+            $this->crearTabla($pdf, 'Tipo de Atención', 
+                             ['Tipo de Atención', 'Porcentaje', 'Totales'], 
+                             $resumenAtencionR);
+            $pdf->Ln(10);
+            $this->crearTabla($pdf, 'Tipo de Riesgo', 
+                             ['Tipo de Riesgo', 'Porcentaje', 'Totales'], 
+                             $resumenRiesgoR);
+            $pdf->Ln(10);
+            $this->crearTabla($pdf, 'Agencia', 
+                             ['Agencia', 'Porcentaje', 'Totales'], 
+                             $resumenAgenciaR);
+            $pdf->Ln(10);
+            $this->crearTabla($pdf, 'Tipo de Verificación', 
+                             ['Tipo de Verificación', 'Porcentaje', 'Totales'], 
+                             $resumenTipoVerificacionR);
+            $pdf->Output('D', 'Reporte_Evaluador.pdf');
         }
     }
 
@@ -193,11 +258,6 @@ class ReporteProductividadController {
         $pdf->Cell(self::COL_TOTALES_WIDTH, 8, $totalSum, 1, 1, 'C', true);
     }
 
-    public function mostrarFormulario() {
-        session_start();
-        $_SESSION['evaluadores'] = $this->model->obtenerEvaluadores();
-        require_once '../view/reporteProductividad.php';
-    }
 }
 
 $action = $_GET['action'] ?? 'mostrarFormulario';
@@ -205,6 +265,8 @@ $controller = new ReporteProductividadController();
 
 if ($action === 'generarReportePDF') {
     $controller->generarReportePDF();
+} elseif ($action === 'generarReportePDFR') {
+    $controller->generarReportePDFR();
 } else {
     $controller->mostrarFormulario();
 }
