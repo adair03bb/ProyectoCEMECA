@@ -80,7 +80,7 @@ class ReporteProductividadController {
             $pdf->Cell(95, 10, utf8_decode('Hasta el: ') . strftime('%d-%b-%Y', strtotime($fechaFin)), 0, 1, 'R'); // Fecha fin a la derecha
 
             $pdf->SetFont('Arial', 'I', 10);
-            $pdf->Cell(0, 10, utf8_decode('Fuente de datos: Tabla - Evaluación Adolescentes'), 0, 1, 'L');
+            $pdf->Cell(0, 10, utf8_decode('Fuente de datos: Tabla - Reevaluación Adolescentes'), 0, 1, 'L');
             $pdf->Ln(10);
 
             $this->crearTabla($pdf, 'Tipo de Atención', 

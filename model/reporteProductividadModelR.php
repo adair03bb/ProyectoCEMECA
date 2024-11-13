@@ -12,7 +12,7 @@ class ReporteProductividadModel {
     public function obtenerEvaluadores() {
         try {
             $sql = "SELECT DISTINCT evaluador AS id, evaluador AS nombre 
-                    FROM eval_adolescentes 
+                    FROM reevaluaciones 
                     WHERE evaluador IS NOT NULL 
                     AND evaluador != ''
                     ORDER BY evaluador";
@@ -28,8 +28,8 @@ class ReporteProductividadModel {
 
     public function obtenerResumenPorTipoAtencion($id, $fechaInicio, $fechaFin) {
         $sql = "SELECT tipo_atencion AS tipo, COUNT(*) as total, 
-                       (COUNT(*) / (SELECT COUNT(*) FROM eval_adolescentes WHERE evaluador = :id AND fecha_recepcion BETWEEN :fechaInicio AND :fechaFin)) * 100 as porcentaje
-                FROM eval_adolescentes
+                       (COUNT(*) / (SELECT COUNT(*) FROM reevaluaciones WHERE evaluador = :id AND fecha_recepcion BETWEEN :fechaInicio AND :fechaFin)) * 100 as porcentaje
+                FROM reevaluaciones
                 WHERE evaluador = :id AND fecha_recepcion BETWEEN :fechaInicio AND :fechaFin
                 GROUP BY tipo_atencion";
         
@@ -40,8 +40,8 @@ class ReporteProductividadModel {
 
     public function obtenerResumenPorTipoRiesgo($id, $fechaInicio, $fechaFin) {
         $sql = "SELECT tipo_riesgo AS tipo, COUNT(*) as total, 
-                       (COUNT(*) / (SELECT COUNT(*) FROM eval_adolescentes WHERE evaluador = :id AND fecha_recepcion BETWEEN :fechaInicio AND :fechaFin)) * 100 as porcentaje
-                FROM eval_adolescentes
+                       (COUNT(*) / (SELECT COUNT(*) FROM reevaluaciones WHERE evaluador = :id AND fecha_recepcion BETWEEN :fechaInicio AND :fechaFin)) * 100 as porcentaje
+                FROM reevaluaciones
                 WHERE evaluador = :id AND fecha_recepcion BETWEEN :fechaInicio AND :fechaFin
                 GROUP BY tipo_riesgo";
         
@@ -52,8 +52,8 @@ class ReporteProductividadModel {
 
     public function obtenerResumenPorAgencia($id, $fechaInicio, $fechaFin) {
         $sql = "SELECT agencia AS tipo, COUNT(*) as total, 
-               (COUNT(*) / (SELECT COUNT(*) FROM eval_adolescentes WHERE evaluador = :id AND fecha_recepcion BETWEEN :fechaInicio AND :fechaFin)) * 100 as porcentaje
-        FROM eval_adolescentes
+               (COUNT(*) / (SELECT COUNT(*) FROM reevaluaciones WHERE evaluador = :id AND fecha_recepcion BETWEEN :fechaInicio AND :fechaFin)) * 100 as porcentaje
+        FROM reevaluaciones
         WHERE evaluador = :id AND fecha_recepcion BETWEEN :fechaInicio AND :fechaFin
         GROUP BY agencia";
         
@@ -64,8 +64,8 @@ class ReporteProductividadModel {
 
     public function obtenerResumenPorTipoVerificacion($id, $fechaInicio, $fechaFin) {
         $sql = "SELECT tipo_verificacion AS tipo, COUNT(*) as total, 
-               (COUNT(*) / (SELECT COUNT(*) FROM eval_adolescentes WHERE evaluador = :id AND fecha_recepcion BETWEEN :fechaInicio AND :fechaFin)) * 100 as porcentaje
-        FROM eval_adolescentes
+               (COUNT(*) / (SELECT COUNT(*) FROM reevaluaciones WHERE evaluador = :id AND fecha_recepcion BETWEEN :fechaInicio AND :fechaFin)) * 100 as porcentaje
+        FROM reevaluaciones
         WHERE evaluador = :id AND fecha_recepcion BETWEEN :fechaInicio AND :fechaFin
         GROUP BY tipo_verificacion";
         
