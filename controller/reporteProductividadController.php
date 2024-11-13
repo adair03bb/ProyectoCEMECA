@@ -1,5 +1,5 @@
 <?php
-require_once '../model/reporteProductividadModelR.php';
+require_once '../model/reporteProductividadModel.php';
 require_once '../lib/fpdf.php';
 
 class MYPDF extends FPDF {
