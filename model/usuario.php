@@ -9,7 +9,7 @@ class usuario {
     }
 
     function logearse($user,$pass) {
-        $sql="SELECT * FROM usuario INNER JOIN tipos_usuario on tipo_usuario_id=id where usuario=:user and contrasena=:pass";
+        $sql="SELECT * FROM usuario_sigeca INNER JOIN tipos_usuario_sigeca on tipo_usuario_id=id where usuario=:user and contrasena=:pass";
         $query = $this->acceso->prepare($sql);
         $query->execute(array(':user'=>$user,':pass'=>$pass));
         $this->objetos=$query->fetchall();
@@ -17,7 +17,7 @@ class usuario {
     }
 
     function obtener_datos($id) {
-        $sql="SELECT * FROM usuario join tipos_usuario on tipo_usuario_id=id and idusuario=:id";
+        $sql="SELECT * FROM usuario_sigeca join tipos_usuario_sigeca on tipo_usuario_id=id and idusuario=:id";
         $query = $this->acceso->prepare($sql);
         $query->execute(array(':id'=>$id));
         $this->objetos=$query->fetchall();
@@ -30,7 +30,7 @@ class usuario {
     }
 
     function editar($idusuario, $nombre, $usuario) {
-        $sql = "UPDATE usuario SET nombre = :nombre, usuario = :usuario WHERE idusuario = :id";
+        $sql = "UPDATE usuario_sigeca SET nombre = :nombre, usuario = :usuario WHERE idusuario = :id";
         $query = $this->acceso->prepare($sql);
         $query->execute(array(':id' => $idusuario, ':nombre' => $nombre, ':usuario' => $usuario));
         if ($query->rowCount() > 0) {
@@ -41,22 +41,22 @@ class usuario {
     }
 
     function cambiar_contra($idusuario, $oldPassword, $newPassword) {
-        $sql = "SELECT * FROM usuario WHERE idusuario = :id AND contrasena = :oldPassword";
+        $sql = "SELECT * FROM usuario_sigeca WHERE idusuario = :id AND contrasena = :oldPassword";
         $query = $this->acceso->prepare($sql);
         $query->execute(array(':id' => $idusuario, ':oldPassword' => $oldPassword));
         $this->objetos = $query->fetchAll();
         if (!empty($this->objetos)) {
-            $sql = "UPDATE usuario SET contrasena = :newPassword WHERE idusuario = :id";
+            $sql = "UPDATE usuario_sigeca SET contrasena = :newPassword WHERE idusuario = :id";
             $query = $this->acceso->prepare($sql);
             $query->execute(array(':id' => $idusuario, ':newPassword' => $newPassword));
-            return 'update';
+            echo 'update';
         } else {
-            return 'no update';
+            echo 'noupdate';
         }
     }   
 
     function cambiar_photo($idusuario, $nombre) {
-        $sql = "UPDATE usuario SET avatar = :nombre WHERE idusuario = :id";
+        $sql = "UPDATE usuario_sigeca SET avatar = :nombre WHERE idusuario = :id";
         $query = $this->acceso->prepare($sql);
         $query->execute(array(':id' => $idusuario, ':nombre' => $nombre));
         
@@ -68,7 +68,7 @@ class usuario {
     }
 
     function obtener_avatar_anterior($idusuario) {
-        $sql = "SELECT avatar FROM usuario WHERE idusuario = :id";
+        $sql = "SELECT avatar FROM usuario_sigeca WHERE idusuario = :id";
         $query = $this->acceso->prepare($sql);
         $query->execute(array(':id' => $idusuario));
         $resultado = $query->fetch(PDO::FETCH_OBJ);

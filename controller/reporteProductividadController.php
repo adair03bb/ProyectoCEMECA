@@ -105,7 +105,7 @@ class ReporteProductividadController {
             $this->crearTabla($pdf, 'Tipo de Verificación', 
                              ['Tipo de Verificación', 'Porcentaje', 'Totales'], 
                              $resumenTipoVerificacion);
-            $pdf->Output('D', 'Reporte_Evaluador.pdf');
+            $pdf->Output('D', 'Evaluacion Adolescentes.pdf');
         }
     }
 
@@ -164,7 +164,7 @@ class ReporteProductividadController {
             $this->crearTabla($pdf, 'Tipo de Verificación', 
                              ['Tipo de Verificación', 'Porcentaje', 'Totales'], 
                              $resumenTipoVerificacionR);
-            $pdf->Output('D', 'Reporte_Evaluador.pdf');
+            $pdf->Output('D', 'Reevaluacion Adolescentes.pdf');
         }
     }
 

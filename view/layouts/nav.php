@@ -111,7 +111,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="../view/estadisticasMensuales.php" class="nav-link">
+          <a href="../controller/estadisticasMensualesController.php?action=mostrarFormulario" class="nav-link">
             <i style="color: #a3b18a;" class="nav-icon bi bi-calendar-week-fill"></i>
             <p style="color: #a3b18a;">
               Estadísticas Mensuales
