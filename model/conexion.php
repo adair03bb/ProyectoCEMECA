@@ -1,11 +1,11 @@
 <?php
 class conexion {
-    private $servidor = "localhost";
-    private $db = "sigeca";
-    private $puerto = "3306";
+    private $servidor = "10.15.106.118";
+    private $db = "sigemeca";
+    private $puerto = "33060";
     private $charset = "utf8";
     private $usuario = "root";
-    private $password = "1q2w3e4r";
+    private $password = "AVSum585*";
     public $pdo = null;
     private $atributos = [
         PDO::ATTR_CASE => PDO::CASE_LOWER,

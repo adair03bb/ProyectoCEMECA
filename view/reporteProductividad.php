@@ -11,7 +11,6 @@ if ($_SESSION['tipo_usuario_id'] == 1 ||$_SESSION['tipo_usuario_id'] == 3) {
     if ($evaluadores === null) {
         require_once '../controller/reporteProductividadController.php';
         $controller = new ReporteProductividadController();
-        exit;
     }
 ?>
     <!DOCTYPE html>
