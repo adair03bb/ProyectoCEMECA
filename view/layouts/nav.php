@@ -51,7 +51,17 @@
     <!-- Sidebar user (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
-        <img id='avatar4' src="../img/perfil.png" class="img-circle elevation-2" alt="User Image">
+       <img id="avatar1" src="<?php 
+    $avatar = $_SESSION['avatar'];
+    $avatarPath = '../img/' . ($avatar ? $avatar : 'perfil.png');
+    
+    // Opcional: Verificar si el archivo existe
+    if (!file_exists($avatarPath)) {
+        $avatarPath = '../img/perfil.png';
+    }
+    
+    echo $avatarPath; 
+?>" alt="" class="profile-user-img img-fluid img-circle">
       </div>
       <div class="info" >
         <a href="#" class="d-block" style="color: #FFF;">

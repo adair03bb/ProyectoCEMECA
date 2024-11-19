@@ -19,11 +19,18 @@ if ($_SESSION['tipo_usuario_id'] == 1 || $_SESSION['tipo_usuario_id'] == 3  || $
       </div>
       <div class="modal-body">
         <div class="text-center">
-            <img id="avatar1" src="../img/perfil.png" alt="" class="profile-user-img img-fluid img-circle">
-        </div>
-        <div class="text-center">
+        
+        <img id="avatar1" src="<?php  $avatar = $_SESSION['avatar'];  $avatarPath = '../img/' . ($avatar ? $avatar : 'perfil.png');
+    
+            // Opcional: Verificar si el archivo existe
+            if (!file_exists($avatarPath)) {
+                $avatarPath = '../img/perfil.png';
+            }
+            echo $avatarPath; 
+        ?>" alt="" class="profile-user-img img-fluid img-circle">
             <b>
-                <?php echo $_SESSION['nombre']; ?>
+                <br><?php echo $_SESSION['nombre']; ?>
+                
             </b>
         </div>
         <span>Necesitamos su password para continuar</span>

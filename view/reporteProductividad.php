@@ -2,7 +2,7 @@
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-if ($_SESSION['tipo_usuario_id'] == 1) {
+if ($_SESSION['tipo_usuario_id'] == 1 ||$_SESSION['tipo_usuario_id'] == 3) {
     include_once 'layouts/header.php';
     include_once 'layouts/nav.php';
     $evaluadores = $_SESSION['evaluadores'] ?? null;

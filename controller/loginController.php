@@ -11,7 +11,7 @@ if (!empty($_SESSION['tipo_usuario_id'])) {
             header('Location: ../view/menuAdmin.php');
             break;
         case '2':
-            header('Location: ../view/menuUsuario.php');
+            header('Location: ../view/menuAdmin.php');
             break;
         case '3':
             header('Location: ../view/menuAdmin.php');
@@ -34,6 +34,7 @@ if (!empty($_SESSION['tipo_usuario_id'])) {
             $_SESSION['usuario'] = $objeto->idusuario;
             $_SESSION['tipo_usuario_id'] = $objeto->tipo_usuario_id;
             $_SESSION['nombre'] = $objeto->nombre;
+            $_SESSION['avatar'] = $objeto->avatar;
         }
 
         // Redirigir según el tipo de usuario
@@ -42,7 +43,7 @@ if (!empty($_SESSION['tipo_usuario_id'])) {
                 header('Location: ../view/menuAdmin.php');
                 break;
             case '2':
-                header('Location: ../view/menuUsuario.php');
+                header('Location: ../view/menuAdmin.php');
                 break;
             case '3':
                 header('Location: ../view/menuAdmin.php');

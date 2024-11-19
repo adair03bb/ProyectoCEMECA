@@ -80,7 +80,7 @@ if ($_SESSION['tipo_usuario_id'] == 1 || $_SESSION['tipo_usuario_id']==3 || $_SE
             </b>
         </div>
         <div class="alert alert-success text-center" id="edit" style='display:none;'>
-            <span><i class="fas fa-check m-1"></i>Se cambio al avatar correctamente</span>
+            <span><i class="fas fa-check m-1"></i>Se cambio al avatar correctamente, para ver cambios debe cerrar sesion</span>
         </div>
         <div class="alert alert-danger text-center" id="noedit" style='display:none;'>
             <span><i class="fas fa-times m-1"></i>Error al cambiar el avatar</span>

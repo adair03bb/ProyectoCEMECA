@@ -102,7 +102,7 @@ $('#form-photo').submit(e => {
             $('#avatar4').attr('src', json.ruta);
             $('#edit').hide('slow');
             $('#edit').show(1000);
-            $('#edit').hide(2000);
+            $('#edit').hide(10000);
             $('#form-photo').trigger('reset');
             buscar_usuario(idusuario);
         }else{
