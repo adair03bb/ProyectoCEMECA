@@ -39,7 +39,7 @@
 <aside class="main-sidebar" style="background-color: #001d3d;" class="sidebar-blue elevation-4">
   <!-- Brand Logo -->
   <a href="../view/menuAdmin.php" class="brand-link">
-    <img src="../img/perfil.png"
+    <img   src="../img/perfil.png"
          alt="AdminLTE Logo"
          class="brand-image img-circle elevation-3"
          style="opacity: .8">

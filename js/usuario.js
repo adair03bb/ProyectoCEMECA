@@ -14,11 +14,11 @@ $(document).ready(function() {
                 $('#usuario').html(usuario[0].usuario);
                 $('#estado').html(usuario[0].estado == 1 ? 'Activo' : 'Inactivo');
                 $('#tipo_usuario_id').html(usuario[0].tipo);
-                $('#avatar2').attr('src',usuario.avatar);
-                $('#avatar1').attr('alt',usuario.avatar);
-                $('#avatar3').attr('alt',usuario.avatar);
-                $('#avatar4').attr('alt',usuario.avatar);
-
+                $('#avatar2').attr('src',usuario[0].avatar);
+                $('#avatar1').attr('src',usuario[0].avatar);
+                $('#avatar3').attr('src',usuario[0].avatar);
+                $('#avatar4').attr('src',usuario[0].avatar);
+                $('#avatar5').attr('src',usuario[0].avatar);
             }
         });
     }
@@ -85,6 +85,7 @@ $(document).ready(function() {
             }
         });
     })
+
 $('#form-photo').submit(e => {
     let formData = new FormData($('#form-photo')[0]);
     $.ajax({
@@ -95,25 +96,25 @@ $('#form-photo').submit(e => {
         contentType: false,
         cache: false
     }).done(function(response) {
-        try {
-            const json = JSON.parse(response);
-            if (json[0].alert == 'edit') {
-                $('#avatar2').attr('src', json[0].ruta);
-                $('#edit').hide('slow');
-                $('#edit').show(1000);
-                $('#edit').hide(2000);
-                $('#form-photo').trigger('reset');
-            } else {
-                $('#noedit').hide('slow');
-                $('#noedit').show(1000);
-                $('#noedit').hide(2000);
-                $('#form-photo').trigger('reset');
-            }
-        } catch (error) {
-            console.error('Error al analizar JSON:', error);
+        const json = JSON.parse(response);
+        if(json.alert=='edit'){
+            $('#avatar2').attr('src', json.ruta);
+            $('#avatar4').attr('src', json.ruta);
+            $('#edit').hide('slow');
+            $('#edit').show(1000);
+            $('#edit').hide(2000);
+            $('#form-photo').trigger('reset');
+            buscar_usuario(idusuario);
+        }else{
+            $('#noedit').hide('slow');
+            $('#noedit').show(1000);
+            $('#noedit').hide(2000);
+            $('#form-photo').trigger('reset');
         }
     });
     e.preventDefault();
 });
+
+
 
 });
