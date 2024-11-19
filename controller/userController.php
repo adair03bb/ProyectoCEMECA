@@ -1,18 +1,23 @@
 <?php
+
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
+
 include_once '../model/usuario.php';
 
 $usuario = new usuario();
 session_start();
 $idusuario=$_SESSION['usuario'];
+
 if ($_POST['funcion'] == 'buscar_usuario') {
     $json = array();
     $usuario->obtener_datos($_POST['dato']);
     foreach ($usuario->objetos as $objeto) {
         $json[] = array(
+            'idusuario' => $objeto->idusuario,
             'nombre' => $objeto->nombre,
             'usuario' => $objeto->usuario,
-            'estado' => $objeto->estado,
             'tipo' => $objeto->tipo,
+            'estado' => $objeto->estado,
             'avatar'=>'../img/'.$objeto->avatar
         );
     }
@@ -65,15 +70,78 @@ if ($_POST['funcion'] == 'cambiar_photo') {
             'ruta'=>$ruta,
             'alert'=>'edit'
         );
-        $jsonstring = json_encode($json);
+        $jsonstring = json_encode($json[0]);
         echo $jsonstring;
     }else{
         $json=array();
         $json[] = array(
             'alert'=>'noedit'
         );
-        $jsonstring = json_encode($json);
+        $jsonstring = json_encode($json[0]);
         echo $jsonstring;
     }
 }
+
+
+if ($_POST['funcion'] == 'buscar_usuarios_adm') {
+    $json = array();
+    $fecha_actual = new DateTime();
+    $usuario->buscar();
+    foreach ($usuario->objetos as $objeto) {
+        $json[] = array(
+            'idusuario' => $objeto->idusuario,  // Añade esta línea
+            'nombre' => $objeto->nombre,
+            'usuario' => $objeto->usuario,
+            'contrasena' =>$objeto->contrasena,
+            'fecha_alta' =>$objeto->fecha_alta,
+            'tipo' => $objeto->tipo,
+            'tipo_usuario'=>$objeto->tipo_usuario_id,
+            'estado' => $objeto->estado,
+            'avatar'=>'../img/'.$objeto->avatar
+            
+        );
+    }
+    $jsonstring = json_encode($json);
+    echo $jsonstring;
+}
+
+if (isset($_POST['funcion']) && $_POST['funcion'] == 'crear_usuario') {
+    $nombre = $_POST['nombres'];
+    $nombreUsu = $_POST['nombreUsu'];
+    $pass = $_POST['password'];
+    $fechaalta = date('Y-m-d');
+    $tipo = 2;
+    $estado = 1;
+    $avatar = 'perfil.png';
+    $usuario->crear($nombre, $nombreUsu, $pass, $fechaalta, $tipo, $estado, $avatar);
+}
+
+
+if ($_POST['funcion'] == 'ascender'){
+    $pass=$_POST['pass'];
+    $id_ascendido=$_POST['id_usuario'];
+   $usuario->ascender($pass,$id_ascendido, $idusuario);
+}
+
+if ($_POST['funcion'] == 'descender'){
+    $pass=$_POST['pass'];
+    $id_descendido=$_POST['id_usuario'];
+   $usuario->descender($pass,$id_descendido, $idusuario);
+}
+
+if ($_POST['funcion'] == 'borrar_usuario'){
+    $pass=$_POST['pass'];
+    $id_borrado=$_POST['id_usuario'];
+   $usuario->borrar($pass,$id_borrado, $idusuario);
+}
+
+
+if ($_POST['funcion'] == 'cambiar_estado') {
+    $idusuario = $_POST['idusuario'];
+    $estado = $_POST['estado'];
+    $usuario->cambiar_estado($idusuario, $estado);
+    echo 'update';
+}
+
+
 ?>

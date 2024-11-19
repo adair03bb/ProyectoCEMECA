@@ -1,13 +1,13 @@
 <?php
 session_start();
-if ($_SESSION['tipo_usuario_id'] == 1) {
+if ($_SESSION['tipo_usuario_id'] == 1 || $_SESSION['tipo_usuario_id']==3 || $_SESSION['tipo_usuario_id']==2) {
     include_once 'layouts/header.php';
 ?>
     <title>Adm | Editar Datos</title>
 <?php
     include_once 'layouts/nav.php';
 ?>
-<!-- Modal -->
+<!-- MODAL CONSTRA -->
 <div class="modal fade" id="cambiarPassword" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -57,6 +57,9 @@ if ($_SESSION['tipo_usuario_id'] == 1) {
     </div>
   </div>
 </div>
+
+
+<!-- MODAL AVATAR-->
 <div class="modal fade" id="cambioPhoto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -66,6 +69,7 @@ if ($_SESSION['tipo_usuario_id'] == 1) {
             <span aria-hidden="true">&times;</span>
         </button>
       </div>
+
       <div class="modal-body">
         <div class="text-center">
             <img id="avatar2" src="../img/perfil.png" alt="" class="profile-user-img img-fluid img-circle">
