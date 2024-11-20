@@ -56,6 +56,9 @@ if ($_POST['funcion'] == 'cambiar_contra') {
     $newPassword = $_POST['newPassword'];
     $usuario->cambiar_contra($idusuario, $oldPassword, $newPassword);
 }
+
+
+
 if ($_POST['funcion'] == 'cambiar_photo') {
     if(($_FILES['photo']['type']=='image/png')||($_FILES['photo']['type']=='image/jpeg')){
         $nombre=uniqid().'-'.$_FILES['photo']['name'];

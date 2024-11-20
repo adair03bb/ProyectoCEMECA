@@ -15,10 +15,11 @@ $(document).ready(function() {
                 $('#estado').html(usuario[0].estado == 1 ? 'Activo' : 'Inactivo');
                 $('#tipo_usuario_id').html(usuario[0].tipo);
                 $('#avatar2').attr('src',usuario[0].avatar);
-                $('#avatar1').attr('src',usuario[0].avatar);
+                $('#ava').attr('src',usuario[0].avatar);
                 $('#avatar3').attr('src',usuario[0].avatar);
                 $('#avatar4').attr('src',usuario[0].avatar);
                 $('#avatar5').attr('src',usuario[0].avatar);
+                $('#avatar1').attr('src',usuario[0].avatar);
             }
         });
     }
@@ -100,6 +101,7 @@ $('#form-photo').submit(e => {
         if(json.alert=='edit'){
             $('#avatar2').attr('src', json.ruta);
             $('#avatar4').attr('src', json.ruta);
+            $('#avatar1').attr('src', json.ruta);
             $('#edit').hide('slow');
             $('#edit').show(1000);
             $('#edit').hide(10000);

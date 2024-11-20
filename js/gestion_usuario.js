@@ -195,6 +195,10 @@ $('#form-crear').submit((e) => {
   e.preventDefault();
 });
 
+
+
+
+
 $(document).on('click','.ascender',(e)=>{
   const elemento=$(this)[0].activeElement.parentElement.parentElement.parentElement.parentElement;
   const id=$(elemento).attr('usuarioId');
@@ -202,6 +206,7 @@ $(document).on('click','.ascender',(e)=>{
   $('#id_user').val(id);
   $('#funcion').val(funcion);
 });
+
 
 $(document).on('click','.descender',(e)=>{
   const elemento=$(this)[0].activeElement.parentElement.parentElement.parentElement.parentElement;

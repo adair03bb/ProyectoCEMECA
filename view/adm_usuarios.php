@@ -94,8 +94,8 @@ if ($_SESSION['tipo_usuario_id'] == 1 || $_SESSION['tipo_usuario_id'] == 3  || $
                 </div>
         </div>
         <div class="card-footer">
-            <button type="submit" class="btn bg-gradient-primary float-right m-1">Guardar</button>
-            <button type="button" data-dismiss="modal" class="btn btn-outline-secondary float-right m-1" >cCerrar</button>
+            <button type="submit" class="btn bg-gradient-primary float-right m-1" form="form-crear" >Guardar</button>
+            <button type="button" data-dismiss="modal" class="btn btn-outline-secondary float-right m-1" >Cerrar</button>
             </form>
         </div>
       </div>  
