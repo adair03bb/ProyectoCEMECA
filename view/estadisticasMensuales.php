@@ -129,8 +129,10 @@ if ($_SESSION['tipo_usuario_id'] == 1) {
             <form action="../controller/estadisticasMensualesController.php?action=generarReportePDFR" method="POST" target="_blank">
                 <select name="tipo_usuario" class="form-control mb-3" required>
                     <option value="">Selecciona una opcion para generar el reporte</option>
-                    <option value="Adolescentes">Adolescentes</option>
-                    <option value="Adultos">Adultos</option>
+                    <option value="medidas_adolescentes">Medidas Adolescentes</option>
+                    <option value="condiciones_adolescentes">Condiciones Adolescentes</option>
+                    <option value="colab_medidas_adolescentes">Colaboraciones de Medidas de Adolescentes</option>
+                    <option value="colab_condiciones_adolescentes">Colaboraciones de Condiciones de Adolescentes</option>
                 </select>
 
                 <!-- Campos de fecha -->

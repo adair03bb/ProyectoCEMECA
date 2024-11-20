@@ -12,8 +12,119 @@ class EstadisticasMensualesController {
     public function mostrarFormulario() {
         require_once '../view/estadisticasMensuales.php';
     }
+    private function obtenerSubregiones() {
+        return [
+            'Valle de Mexico I',
+            'Norte',
+            'Valle de Mexico II',
+            'Tlalnepantla',
+            'Sur'
+        ];
+    }    
 
     public function generarReportePDF() {
+        try {
+            ob_start();
+
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $tipoUsuario = $_POST['tipo_usuario'] ?? '';
+                $fechaInicio = $_POST['fechaInicio'] ?? '';
+                $fechaFin = $_POST['fechaFin'] ?? '';
+
+                if (empty($tipoUsuario) || empty($fechaInicio) || empty($fechaFin)) {
+                    ob_end_clean();
+                    echo "Por favor, complete todos los campos.";
+                    return;
+                }
+
+                $subregiones = $this->obtenerSubregiones();
+                $datos = $this->model->obtenerDatosPorSubregionConTotales($tipoUsuario, $fechaInicio, $fechaFin);
+
+                // Combinar subregiones manuales con los datos dinámicos
+                $datosCombinados = [];
+                foreach ($subregiones as $subregion) {
+                    $datosSubregion = array_filter($datos, function ($dato) use ($subregion) {
+                        return $dato->subregion === $subregion;
+                    });
+
+                    if (!empty($datosSubregion)) {
+                        $datosCombinados[] = array_merge(
+                            ['subregion' => $subregion],
+                            (array) array_shift($datosSubregion)
+                        );
+                    } else {
+                        $datosCombinados[] = [
+                            'subregion' => $subregion,
+                            'peticiones' => 0,
+                            'atendidas' => 0,
+                            'porcentaje_atencion' => '0',
+                            'atendida_no_autorizada' => 0,
+                            'no_realizada_por_libertad' => 0,
+                            'no_realizada_por_prision_preventiva' => 0,
+                            'no_realizada_por_circunstancias_especiales' => 0,
+                            'no_realizada_por_traslado_agencia' => 0,
+                            'no_realizada_por_traslado_centro_preventivo' => 0,
+                            'no_realizada_por_condicion_medica' => 0,
+                            'no_atendida' => 0,
+                            'riesgo_alto' => 0,
+                            'riesgo_medio' => 0,
+                            'riesgo_bajo' => 0,
+                            'sin_nivel_de_riesgo' => 0,
+                            'informe' => 0
+                        ];
+                    }
+                }
+
+                $pdf = new FPDF('L', 'mm', 'A4');
+                $pdf->AddPage();
+                $pdf->SetFont('Arial', 'B', 5);
+
+                // Cabecera del PDF
+                $pdf->Cell(0, 10, utf8_decode("Reporte de Productividad - $tipoUsuario"), 0, 1, 'C');
+                $pdf->Cell(0, 10, utf8_decode("Desde: $fechaInicio Hasta: $fechaFin"), 0, 1, 'C');
+                $pdf->Ln(10);
+
+                // Encabezados de la tabla
+                $this->addTableHeader($pdf);
+
+                // Datos de la tabla
+                $pdf->SetFont('Arial', '', 6);
+                foreach ($datosCombinados as $dato) {
+                    $this->addTableRow($pdf, [
+                        utf8_decode($dato['subregion']),
+                        $dato['peticiones'],
+                        $dato['atendidas'],
+                        $dato['porcentaje_atencion'] . '%',
+                        $dato['atendida_no_autorizada'],
+                        $dato['no_realizada_por_libertad'],
+                        $dato['no_realizada_por_prision_preventiva'],
+                        $dato['no_realizada_por_circunstancias_especiales'],
+                        $dato['no_realizada_por_traslado_agencia'],
+                        $dato['no_realizada_por_traslado_centro_preventivo'],
+                        $dato['no_realizada_por_condicion_medica'],
+                        $dato['no_atendida'],
+                        $dato['riesgo_alto'],
+                        $dato['riesgo_medio'],
+                        $dato['riesgo_bajo'],
+                        $dato['sin_nivel_de_riesgo'],
+                        $dato['informe']
+                    ]);
+                }
+
+                $pdf->Ln(10);
+                $pdf->Cell(0, 10,utf8_decode("Elaboró"), 0, 1, 'R');
+                $pdf->Cell(0, 10, utf8_decode("Área de Monitoreo e Informática"), 0, 1, 'R');
+
+                ob_end_clean();
+                $pdf->Output('I', "Reporte_$tipoUsuario.pdf");
+                exit;
+            }
+        } catch (Exception $e) {
+            ob_end_clean();
+            echo "Error generando el reporte: " . $e->getMessage();
+        }
+    }
+    public function generarReportePDFR() {
         try {
             ob_start();
     
@@ -28,7 +139,7 @@ class EstadisticasMensualesController {
                     return;
                 }
     
-                $datos = $this->model->obtenerDatosPorSubregion($tipoUsuario, $fechaInicio, $fechaFin);
+                $datos = $this->model->obtenerDatosPorSubregionConTotales($tipoUsuario, $fechaInicio, $fechaFin);
     
                 if (empty($datos)) {
                     ob_end_clean();
@@ -203,6 +314,9 @@ $controller = new EstadisticasMensualesController();
 
 if ($action === 'generarReportePDF') {
     $controller->generarReportePDF();
+} elseif ($action === 'generarReportePDFR') {
+    $controller->generarReportePDFR();
 } else {
     $controller->mostrarFormulario();
 }
+?>
