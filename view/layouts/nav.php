@@ -129,7 +129,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="../view/reporteIndicadores.php" class="nav-link">
+          <a href="../controller/reporteIndicadoresController.php?action=mostrarFormulario" class="nav-link">
             <i style="color: #a3b18a;" class="nav-icon bi bi-clipboard-data"></i>
             <p style="color: #a3b18a;">
               Reportes de Indicadores
@@ -137,7 +137,14 @@
           </a>
         </li>
 
-        <li class="nav-header" style="color: #FFF;">Gráficas</li>
+        <li class="nav-header" style="color: #FFF;">Estadísticas</li>
+        <a href="../view/menuAdmin.php" class="nav-link">
+            <i style="color: #a3b18a;" class="nav-icon bi bi-bar-chart-line-fill"></i>
+            <p style="color: #a3b18a;">
+              Gráficas
+            </p>
+          </a>
+        </li>
       </ul>
     </nav>
     <!-- /.sidebar-menu -->

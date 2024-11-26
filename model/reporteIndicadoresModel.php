@@ -1,7 +1,7 @@
 <?php
 require_once 'conexion.php';
 
-class EstadisticasMensualesModel {
+class ReporteIndicadoresModel {
     private $pdo;
 
     public function __construct() {
@@ -44,7 +44,6 @@ class EstadisticasMensualesModel {
             return [];
         }
     }
-
     public function obtenerDatosPorSubregionA($fechaInicio, $fechaFin) {
         try {
             $sql = "
@@ -220,5 +219,4 @@ class EstadisticasMensualesModel {
             throw $e;
         }
     }
-        
 }

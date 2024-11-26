@@ -2,7 +2,7 @@
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-if ($_SESSION['tipo_usuario_id'] == 1) {
+if ($_SESSION['tipo_usuario_id'] == 1 || $_SESSION['tipo_usuario_id'] == 3  || $_SESSION['tipo_usuario_id'] == 2) {
     include_once 'layouts/header.php';
     include_once 'layouts/nav.php';
     $evaluadores = $_SESSION['evaluadores'] ?? null;
@@ -88,70 +88,105 @@ if ($_SESSION['tipo_usuario_id'] == 1) {
                     ?>
                 </div>
             <?php endif; ?>
-<!-- Formulario para Evaluación Adolescentes -->
-<div class="row justify-content-center">
-    <div class="col-md-8 report-card">
-        <div class="card-header text-center">
-            Reportes de Evaluación.
-        </div>
-        <div class="card-body">
-            <form action="../controller/estadisticasMensualesController.php?action=generarReportePDF" method="POST" target="_blank">
-                <select name="tipo_usuario" class="form-control mb-3" required>
-                    <option value="">Selecciona una opcion para generar el reporte</option>
-                    <option value="Adolescentes">Adolescentes</option>
-                    <option value="Adultos">Adultos</option>
-                </select>
-
-                <!-- Campos de fecha -->
-                <div class="row">
-                    <div class="col">
-                        <label for="fechaInicio">Fecha Inicio</label>
-                        <input type="date" name="fechaInicio" id="fechaInicio" class="form-control" required>
+            <!-- Formulario para Evaluación Adolescentes -->
+            <div class="row justify-content-center">
+                <div class="col-md-8 report-card">
+                    <div class="card-header text-center">
+                        Reportes de Evaluación.
                     </div>
-                    <div class="col">
-                        <label for="fechaFin">Fecha Fin</label>
-                        <input type="date" name="fechaFin" id="fechaFin" class="form-control" required>
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary mt-3">Generar Reporte</button>
-            </form>
-        </div>
-    </div>
-</div>
+                    <div class="card-body">
+                        <form action="../controller/estadisticasMensualesController.php" method="POST" target="_blank">
+                        <select name="tipo_usuario" id="tipo_indicador" class="form-control mb-3" required onchange="updateIndicadorAction(this)">
+                        <option value="">Selecciona una opcion para generar el reporte</option>
+                                <option value="Adolescentes">Adolescentes</option>
+                                <option value="Adultos">Adultos</option>
+                            </select>
 
-<!-- Formulario para Reevaluación -->
-<div class="row justify-content-center">
-    <div class="col-md-8 report-card">
-        <div class="card-header text-center">
-            Reportes de Supervisión.
-        </div>
-        <div class="card-body">
-            <form action="../controller/estadisticasMensualesController.php?action=generarReportePDFR" method="POST" target="_blank">
-                <select name="tipo_usuario" class="form-control mb-3" required>
-                    <option value="">Selecciona una opcion para generar el reporte</option>
-                    <option value="medidas_adolescentes">Medidas Adolescentes</option>
-                    <option value="condiciones_adolescentes">Condiciones Adolescentes</option>
-                    <option value="colab_medidas_adolescentes">Colaboraciones de Medidas de Adolescentes</option>
-                    <option value="colab_condiciones_adolescentes">Colaboraciones de Condiciones de Adolescentes</option>
-                </select>
-
-                <!-- Campos de fecha -->
-                <div class="row">
-                    <div class="col">
-                        <label for="fechaInicio">Fecha Inicio</label>
-                        <input type="date" name="fechaInicio" id="fechaInicio" class="form-control" required>
-                    </div>
-                    <div class="col">
-                        <label for="fechaFin">Fecha Fin</label>
-                        <input type="date" name="fechaFin" id="fechaFin" class="form-control" required>
+                            <!-- Campos de fecha -->
+                            <div class="row">
+                                <div class="col">
+                                    <label for="fechaInicio">Fecha Inicio</label>
+                                    <input type="date" name="fechaInicio" id="fechaInicio" class="form-control" max="<?= date('Y-m-d') ?>" required>
+                                </div>
+                                <div class="col">
+                                    <label for="fechaFin">Fecha Fin</label>
+                                    <input type="date" name="fechaFin" id="fechaFin" class="form-control" max="<?= date('Y-m-d') ?>" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary mt-3">Generar Reporte</button>
+                        </form>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary mt-3">Generar Reporte</button>
-            </form>
-        </div>
-    </div>
-</div>
+            </div>
 
+            <!-- Formulario para Reevaluación -->
+            <div class="row justify-content-center">
+                <div class="col-md-8 report-card">
+                    <div class="card-header text-center">
+                        Reportes de Supervisión.
+                    </div>
+                    <div class="card-body">
+                        <form action="../controller/estadisticasMensualesController.php" method="POST" target="_blank">
+                        <select name="tipo_usuario" id="tipo_supervision" class="form-control mb-3" required onchange="updateSupervisionAction(this)">
+                        <option value="">Selecciona una opcion para generar el reporte</option>
+                                <option value="medidas_adolescentes">Medidas Adolescentes</option>
+                                <option value="condiciones_adolescentes">Condiciones Adolescentes</option>
+                                <option value="colab_medidas_adolescentes">Colaboraciones de Medidas de Adolescentes</option>
+                                <option value="colab_condiciones_adolescentes">Colaboraciones de Condiciones de Adolescentes</option>
+                            </select>
+
+                            <!-- Campos de fecha -->
+                            <div class="row">
+                                <div class="col">
+                                    <label for="fechaInicio">Fecha Inicio</label>
+                                    <input type="date" name="fechaInicio" id="fechaInicio" class="form-control" max="<?= date('Y-m-d') ?>" required>
+                                </div>
+                                <div class="col">
+                                    <label for="fechaFin">Fecha Fin</label>
+                                    <input type="date" name="fechaFin" id="fechaFin" class="form-control" max="<?= date('Y-m-d') ?>" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary mt-3">Generar Reporte</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <script>
+                function updateIndicadorAction(select) {
+                    var form = select.form;
+                    var action = '../controller/estadisticasMensualesController.php?action=';
+
+                    if (select.value === 'Adolescentes') {
+                        action += 'generarReportePDF';
+                    } else if (select.value === 'Adultos') {
+                        action += 'generarReportePDFR';
+                    }
+
+                    form.action = action;
+                }
+
+                function updateSupervisionAction(select) {
+                    var form = select.form;
+                    var action = '../controller/estadisticasMensualesController.php?action=';
+
+                    switch (select.value) {
+                        case 'medidas_adolescentes':
+                            action += 'generarReportePDFM';
+                            break;
+                        case 'condiciones_adolescentes':
+                            action += 'generarReportePDFC';
+                            break;
+                        case 'colab_medidas_adolescentes':
+                            action += 'generarReportePDFCM';
+                            break;
+                        case 'colab_condiciones_adolescentes':
+                            action += 'generarReportePDFCC';
+                            break;
+                    }
+
+                    form.action = action;
+                }
+            </script>
         </div>
     </body>
 

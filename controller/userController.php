@@ -145,6 +145,59 @@ if ($_POST['funcion'] == 'cambiar_estado') {
     $usuario->cambiar_estado($idusuario, $estado);
     echo 'update';
 }
+if ($_POST['funcion'] == 'obtener_edades_por_municipio') {
+    $json = array();
+    $municipio = $_POST['municipio'];
+    $datos = $usuario->obtener_edades_por_municipio($municipio);
+    foreach ($datos as $dato) {
+        $json[] = array(
+            'tipo_evaluacion' => $dato->municipio,
+            'edad' => $dato->edad,
+            'total' => $dato->total
+        );
+    }
+    echo json_encode($json);
+    exit;
+}
+
+if ($_POST['funcion'] == 'obtener_municipios') {
+    $json = array();
+    $municipios = $usuario->obtener_municipios();
+    foreach ($municipios as $municipio) {
+        $json[] = array('municipio' => $municipio->municipio);
+    }
+    echo json_encode($json);
+    exit;
+}
+
+
+if ($_POST['funcion'] == 'obtener_edad_mas_comun') {
+    $sql = "WITH ranked_ages AS (
+                SELECT municipio, edad, COUNT(*) AS total,
+                       ROW_NUMBER() OVER (PARTITION BY municipio ORDER BY COUNT(*) DESC) AS rnk
+                FROM eval_adolescentes
+                GROUP BY municipio, edad
+            )
+            SELECT municipio, edad, total
+            FROM ranked_ages
+            WHERE rnk = 1
+            ORDER BY municipio";
+
+    $query = $usuario->acceso->prepare($sql);
+    $query->execute();
+    $resultados = $query->fetchAll(PDO::FETCH_OBJ);
+
+    $json = array();
+    foreach ($resultados as $resultado) {
+        $json[] = array(
+            'municipio' => $resultado->municipio,
+            'edad' => $resultado->edad,
+            'total' => $resultado->total
+        );
+    }
+    echo json_encode($json);
+    exit;
+}
 
 
 ?>

@@ -2,7 +2,7 @@
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-if ($_SESSION['tipo_usuario_id'] == 1 ||$_SESSION['tipo_usuario_id'] == 3) {
+if ($_SESSION['tipo_usuario_id'] == 1 || $_SESSION['tipo_usuario_id'] == 3  || $_SESSION['tipo_usuario_id'] == 2) {
     include_once 'layouts/header.php';
     include_once 'layouts/nav.php';
     $evaluadores = $_SESSION['evaluadores'] ?? null;
@@ -89,75 +89,75 @@ if ($_SESSION['tipo_usuario_id'] == 1 ||$_SESSION['tipo_usuario_id'] == 3) {
                 </div>
             <?php endif; ?>
             <div class="row justify-content-center">
-    <div class="col-md-8 report-card">
-        <div class="card-header text-center">
-            Reporte de Evaluador - Tabla: Evaluación Adolescentes.
-        </div>
-        <div class="card-body">
-            <form action="../controller/reporteProductividadController.php?action=generarReportePDF" method="POST" target="_blank">
-                <select name="id" class="form-control mb-3" required>
-                    <option value="">Selecciona el Evaluador</option>
-                    <?php if (!empty($_SESSION['evaluadores_adolescentes'])): ?>
-                        <?php foreach ($_SESSION['evaluadores_adolescentes'] as $evaluador): ?>
-                            <option value="<?php echo htmlspecialchars($evaluador->id); ?>">
-                                <?php echo htmlspecialchars($evaluador->nombre); ?>
-                            </option>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
-                </select>
-
-                <!-- Campos de fecha -->
-                <div class="row">
-                    <div class="col">
-                        <label for="fechaInicio">Fecha Inicio</label>
-                        <input type="date" name="fechaInicio" id="fechaInicio" class="form-control" required>
+                <div class="col-md-8 report-card">
+                    <div class="card-header text-center">
+                        Reporte de Evaluador - Tabla: Evaluación Adolescentes.
                     </div>
-                    <div class="col">
-                        <label for="fechaFin">Fecha Fin</label>
-                        <input type="date" name="fechaFin" id="fechaFin" class="form-control" required>
+                    <div class="card-body">
+                        <form action="../controller/reporteProductividadController.php?action=generarReportePDF" method="POST" target="_blank">
+                            <select name="id" class="form-control mb-3" required>
+                                <option value="">Selecciona el Evaluador</option>
+                                <?php if (!empty($_SESSION['evaluadores_adolescentes'])): ?>
+                                    <?php foreach ($_SESSION['evaluadores_adolescentes'] as $evaluador): ?>
+                                        <option value="<?php echo htmlspecialchars($evaluador->id); ?>">
+                                            <?php echo htmlspecialchars($evaluador->nombre); ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                            </select>
+
+                            <!-- Campos de fecha -->
+                            <div class="row">
+                                <div class="col">
+                                    <label for="fechaInicio">Fecha Inicio</label>
+                                    <input type="date" name="fechaInicio" id="fechaInicio" class="form-control" max="<?= date('Y-m-d') ?>" required>
+                                </div>
+                                <div class="col">
+                                    <label for="fechaFin">Fecha Fin</label>
+                                    <input type="date" name="fechaFin" id="fechaFin" class="form-control" max="<?= date('Y-m-d') ?>" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary mt-3">Generar Reporte</button>
+                        </form>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary mt-3">Generar Reporte</button>
-            </form>
-        </div>
-    </div>
-</div>
+            </div>
 
-<!-- Formulario para Reevaluación Adolescentes -->
-<div class="row justify-content-center">
-    <div class="col-md-8 report-card">
-        <div class="card-header text-center">
-            Reporte de Evaluador - Tabla: Reevaluación Adolescentes.
-        </div>
-        <div class="card-body">
-            <form action="../controller/reporteProductividadController.php?action=generarReportePDFR" method="POST" target="_blank">
-                <select name="id" class="form-control mb-3" required>
-                    <option value="">Selecciona el Evaluador</option>
-                    <?php if (!empty($_SESSION['evaluadores_reevaluadores'])): ?>
-                        <?php foreach ($_SESSION['evaluadores_reevaluadores'] as $evaluador): ?>
-                            <option value="<?php echo htmlspecialchars($evaluador->id); ?>">
-                                <?php echo htmlspecialchars($evaluador->nombre); ?>
-                            </option>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
-                </select>
-
-                <!-- Campos de fecha -->
-                <div class="row">
-                    <div class="col">
-                        <label for="fechaInicio">Fecha Inicio</label>
-                        <input type="date" name="fechaInicio" id="fechaInicio" class="form-control" required>
+            <!-- Formulario para Reevaluación Adolescentes -->
+            <div class="row justify-content-center">
+                <div class="col-md-8 report-card">
+                    <div class="card-header text-center">
+                        Reporte de Evaluador - Tabla: Reevaluación Adolescentes.
                     </div>
-                    <div class="col">
-                        <label for="fechaFin">Fecha Fin</label>
-                        <input type="date" name="fechaFin" id="fechaFin" class="form-control" required>
+                    <div class="card-body">
+                        <form action="../controller/reporteProductividadController.php?action=generarReportePDFR" method="POST" target="_blank">
+                            <select name="id" class="form-control mb-3" required>
+                                <option value="">Selecciona el Evaluador</option>
+                                <?php if (!empty($_SESSION['evaluadores_reevaluadores'])): ?>
+                                    <?php foreach ($_SESSION['evaluadores_reevaluadores'] as $evaluador): ?>
+                                        <option value="<?php echo htmlspecialchars($evaluador->id); ?>">
+                                            <?php echo htmlspecialchars($evaluador->nombre); ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                            </select>
+
+                            <!-- Campos de fecha -->
+                            <div class="row">
+                                <div class="col">
+                                    <label for="fechaInicio">Fecha Inicio</label>
+                                    <input type="date" name="fechaInicio" id="fechaInicio" class="form-control" max="<?= date('Y-m-d') ?>" required>
+                                </div>
+                                <div class="col">
+                                    <label for="fechaFin">Fecha Fin</label>
+                                    <input type="date" name="fechaFin" id="fechaFin" class="form-control" max="<?= date('Y-m-d') ?>" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary mt-3">Generar Reporte</button>
+                        </form>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary mt-3">Generar Reporte</button>
-            </form>
-        </div>
-    </div>
-</div>
+            </div>
         </div>
     </body>
 

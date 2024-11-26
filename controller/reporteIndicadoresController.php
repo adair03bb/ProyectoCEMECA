@@ -1,5 +1,5 @@
 <?php
-require_once '../model/estadisticasMensualesModel.php';
+require_once '../model/reporteIndicadoresModel.php';
 require_once '../lib/fpdf.php';
 
 class MYPDF extends FPDF {
@@ -66,7 +66,7 @@ class MYPDF extends FPDF {
     }
 }
 
-class EstadisticasMensualesController {
+class ReporteIndicadoresController {
     private $model;
     private $subregiones = [
         'NORTE' => ['SN-A', 'SN-A-', 'SA-N-', 'SA-N'],
@@ -77,11 +77,11 @@ class EstadisticasMensualesController {
     ];
 
     public function __construct() {
-        $this->model = new EstadisticasMensualesModel();
+        $this->model = new ReporteIndicadoresModel();
     }
 
     public function mostrarFormulario() {
-        require_once '../view/estadisticasMensuales.php';
+        require_once '../view/reporteIndicadores.php';
     } 
 
     public function generarReportePDF() {
@@ -682,6 +682,8 @@ class EstadisticasMensualesController {
             echo "Error generando el reporte: " . $e->getMessage();
         }
     }
+
+
     public function generarReportePDFM() {
         try {
             ob_clean();
@@ -1965,7 +1967,7 @@ class EstadisticasMensualesController {
     
 }
 $action = $_GET['action'] ?? '';
-$controller = new EstadisticasMensualesController();
+$controller = new ReporteIndicadoresController();
 
 switch($action) {
     case 'generarReportePDF':
@@ -1996,5 +1998,5 @@ switch($action) {
     default:
         $controller->mostrarFormulario();
         break;
-}
+}   
 ?>

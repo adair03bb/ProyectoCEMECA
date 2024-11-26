@@ -57,9 +57,13 @@ class ReporteProductividadController {
             $fechaInicio = $_POST['fechaInicio'] ?? '';
             $fechaFin = $_POST['fechaFin'] ?? '';
 
-            if (empty($id) || empty($fechaInicio) || empty($fechaFin)) {
-                echo "Por favor, complete todos los campos.";
-                return;
+            $fechaActual = date('Y-m-d');
+
+            if (strtotime($fechaInicio) > strtotime($fechaActual) || 
+                strtotime($fechaFin) > strtotime($fechaActual)) {
+                // Maneja el error de fechas futuras
+                echo "No se permiten fechas futuras.";
+                exit;
             }
 
             $resumenAtencion = $this->model->obtenerResumenPorTipoAtencion($id, $fechaInicio, $fechaFin);
@@ -116,9 +120,13 @@ class ReporteProductividadController {
             $fechaInicio = $_POST['fechaInicio'] ?? '';
             $fechaFin = $_POST['fechaFin'] ?? '';
 
-            if (empty($id) || empty($fechaInicio) || empty($fechaFin)) {
-                echo "Por favor, complete todos los campos.";
-                return;
+            $fechaActual = date('Y-m-d');
+
+            if (strtotime($fechaInicio) > strtotime($fechaActual) || 
+                strtotime($fechaFin) > strtotime($fechaActual)) {
+                // Maneja el error de fechas futuras
+                echo "No se permiten fechas futuras.";
+                exit;
             }
 
             $resumenAtencionR = $this->model->obtenerResumenPorTipoAtencionR($id, $fechaInicio, $fechaFin);
