@@ -172,16 +172,23 @@ if ($_POST['funcion'] == 'obtener_municipios') {
 
 
 if ($_POST['funcion'] == 'obtener_edad_mas_comun') {
-    $sql = "WITH ranked_ages AS (
-                SELECT municipio, edad, COUNT(*) AS total,
-                       ROW_NUMBER() OVER (PARTITION BY municipio ORDER BY COUNT(*) DESC) AS rnk
+    $sql = "SELECT t1.municipio, t1.edad, t1.total
+            FROM (
+                SELECT municipio, edad, COUNT(*) AS total
                 FROM eval_adolescentes
                 GROUP BY municipio, edad
-            )
-            SELECT municipio, edad, total
-            FROM ranked_ages
-            WHERE rnk = 1
-            ORDER BY municipio";
+            ) t1
+            INNER JOIN (
+                SELECT municipio, MAX(total) AS max_total
+                FROM (
+                    SELECT municipio, edad, COUNT(*) AS total
+                    FROM eval_adolescentes
+                    GROUP BY municipio, edad
+                ) t2
+                GROUP BY municipio
+            ) t3
+            ON t1.municipio = t3.municipio AND t1.total = t3.max_total
+            ORDER BY t1.municipio";
 
     $query = $usuario->acceso->prepare($sql);
     $query->execute();

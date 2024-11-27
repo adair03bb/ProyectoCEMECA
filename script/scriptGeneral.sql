@@ -25,6 +25,7 @@ CREATE TABLE IF NOT EXISTS usuario_sigeca (
     fecha_alta DATE NOT NULL,
     tipo_usuario_id INT,
     estado TINYINT(1) NULL DEFAULT 1,
+    avatar VARCHAR(255),
     PRIMARY KEY (idusuario),
     FOREIGN KEY (tipo_usuario_id) REFERENCES tipos_usuario(id)
 )ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -256,7 +257,7 @@ CREATE TABLE IF NOT EXISTS eval_adultos(
     ultima_accion TEXT,
     forma_conclusion VARCHAR(100)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-    CREATE TABLE condiciones_adolescentes(
+    CREATE TABLE IF NOT EXISTS condiciones_adolescentes(
 	supervision VARCHAR(30) NOT NULL,
 	fecha_solicitud DATE NOT NULL,
 	evaluacion VARCHAR(30) DEFAULT 'S/D',
@@ -304,7 +305,7 @@ CREATE TABLE IF NOT EXISTS eval_adultos(
     ultima_accion TEXT,
     forma_conclusion VARCHAR(100)) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-        CREATE TABLE IF NOT EXISTS colab_medidas_adolescentes(
+    CREATE TABLE IF NOT EXISTS colab_medidas_adolescentes(
 	supervision VARCHAR(30) NOT NULL,
 	fecha_solicitud DATE NOT NULL,
 	colaboracion VARCHAR(30) DEFAULT 'S/D',
