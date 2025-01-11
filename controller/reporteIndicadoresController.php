@@ -69,10 +69,10 @@ class MYPDF extends FPDF {
 class ReporteIndicadoresController {
     private $model;
     private $subregiones = [
-        'NORTE' => ['SN-A', 'SN-A-', 'SA-N-', 'SA-N'],
+        'NORTE' => ['SN-A', 'SN-A-', 'SA-N-', 'SA-N','SN-'],
         'SUR' => ['SS-A', 'SSA-'],
         'TLALNEPANTLA' => ['ST-A', 'ST-A-', 'SA-T-', 'SA-T'],
-        'VALLE DE MÉXICO I' => ['SV1-A', 'SV1-A-', 'SA-VI-'],
+        'VALLE DE MÉXICO I' => ['SV1-A', 'SV1-A-', 'SA-VI-','SV1-'],
         'VALLE DE MÉXICO II' => ['SV2-A', 'SV2A-', 'SA-VII-', 'SV2A', 'SV2A/'],
     ];
 

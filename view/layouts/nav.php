@@ -124,7 +124,7 @@
           <a href="../controller/estadisticasMensualesController.php?action=mostrarFormulario" class="nav-link">
             <i style="color: #a3b18a;" class="nav-icon bi bi-calendar-week-fill"></i>
             <p style="color: #a3b18a;">
-              Estadísticas Mensuales
+              Reportes de Evaluación
             </p>
           </a>
         </li>
@@ -132,7 +132,7 @@
           <a href="../controller/reporteIndicadoresController.php?action=mostrarFormulario" class="nav-link">
             <i style="color: #a3b18a;" class="nav-icon bi bi-clipboard-data"></i>
             <p style="color: #a3b18a;">
-              Reportes de Indicadores
+              Reportes de Supervisión
             </p>
           </a>
         </li>

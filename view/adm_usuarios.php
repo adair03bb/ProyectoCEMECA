@@ -43,6 +43,9 @@ if ($_SESSION['tipo_usuario_id'] == 1 || $_SESSION['tipo_usuario_id'] == 3  || $
         <div class="alert alert-danger text-center" id="vacia" style='display:none;'>
             <span><i class="fas fa-times m-1"></i>Error: No se permiten contraseñas vacías</span>
         </div>
+        <div class="alert alert-danger text-center" id="" style='display:none;'>
+            <span><i class="fas fa-times m-1"></i>La contraseña debe tener máximo 10 caracteres</span>
+        </div>
         <form id="form-confirmar">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -90,8 +93,8 @@ if ($_SESSION['tipo_usuario_id'] == 1 || $_SESSION['tipo_usuario_id'] == 3  || $
                 </div>
                 <div class="form-group">
                     <label for="pass">Contraseña</label>
-                    <input id="pass" type="password" class="form-control" placeholder="Ingrese contraseña" required>
-                </div>
+                    <input id="pass" type="password" class="form-control" placeholder="Ingrese contraseña (máximo 10 caracteres)" required>
+                    </div>
         </div>
         <div class="card-footer">
             <button type="submit" class="btn bg-gradient-primary float-right m-1" form="form-crear" >Guardar</button>

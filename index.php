@@ -25,7 +25,7 @@ if (!empty($_SESSION['tipo_usuario_id'])) {
         <div class="contenido-central">
             <h1 id="titulo">SIGECA</h1>
             <div class="division"></div>
-            <h2 class="subtitulo">Sistema de Gestión de Control de Adolescentes</h2>
+            <h2 class="subtitulo">Sistema de Gestión y Control de Adolescentes</h2>
         </div>
         <div class="logos">
             <img id="logoEdomex" src="img/edomex.png" alt="Logo Edomex">

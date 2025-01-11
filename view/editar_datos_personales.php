@@ -46,8 +46,8 @@ if ($_SESSION['tipo_usuario_id'] == 1 || $_SESSION['tipo_usuario_id']==3 || $_SE
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fas fa-lock"></i></span>
                 </div>
-                <input id="newPassword" type="text" class="form-control" placeholder="Ingresa la contraseña nueva">
-            </div>
+                <input id="newPassword" type="text" class="form-control" placeholder="Ingresa la contraseña nueva (máximo 10 caracteres)">
+                </div>
         </form>
       </div>
       <div class="modal-footer">

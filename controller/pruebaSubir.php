@@ -35,7 +35,7 @@ if (isset($_POST['submit'])) {
         if ($extension == 'xlsx' || $extension == 'xls') {
            
             $documento = IOFactory::load($archivoTmp);
-            $hojaActual = $documento->getSheet(0); 
+            $hojaActual = $documento->getSheet(1); 
 
             $numeroFilas = $hojaActual->getHighestDataRow();
 

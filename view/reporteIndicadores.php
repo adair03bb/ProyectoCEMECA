@@ -19,7 +19,7 @@ if ($_SESSION['tipo_usuario_id'] == 1 || $_SESSION['tipo_usuario_id'] == 3  || $
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Adm | Reportes de Indicadores</title>
+        <title>Adm | Reportes de Supervisión</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <style>
             body,
@@ -71,7 +71,7 @@ if ($_SESSION['tipo_usuario_id'] == 1 || $_SESSION['tipo_usuario_id'] == 3  || $
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="../view/menuAdmin.php">Ir a Inicio</a></li>
-                            <li class="breadcrumb-item active">Reportes de Indicadores</li>
+                            <li class="breadcrumb-item active">Reportes de Supervisión</li>
                         </ol>
                     </div>
                 </div>
@@ -79,7 +79,7 @@ if ($_SESSION['tipo_usuario_id'] == 1 || $_SESSION['tipo_usuario_id'] == 3  || $
         </section>
 
         <div class="container-main">
-            <h2>Reportes de Indicadores</h2>
+            <h2>Reportes de Supervisión</h2>
             <?php if (isset($_SESSION['error'])): ?>
                 <div class="alert alert-danger">
                     <?php
@@ -92,7 +92,6 @@ if ($_SESSION['tipo_usuario_id'] == 1 || $_SESSION['tipo_usuario_id'] == 3  || $
             <div class="row justify-content-center">
                 <div class="col-md-8 report-card">
                     <div class="card-header text-center">
-                        Reportes de Evaluación.
                     </div>
                     <div class="card-body">
                         <form action="../controller/reporteIndicadoresController.php" method="POST" target="_blank">
@@ -106,11 +105,19 @@ if ($_SESSION['tipo_usuario_id'] == 1 || $_SESSION['tipo_usuario_id'] == 3  || $
                             <div class="row">
                                 <div class="col">
                                     <label for="fechaInicio">Fecha Inicio</label>
-                                    <input type="date" name="fechaInicio" id="fechaInicio" class="form-control" max="<?= date('Y-m-d') ?>" required>
+                                    <input type="date" name="fechaInicio" id="fechaInicio"
+                                        class="form-control"
+                                        max="<?= date('Y-m-d') ?>"
+                                        min="<?= date('Y-m-d', strtotime('-10 years')) ?>"
+                                        required>
                                 </div>
                                 <div class="col">
                                     <label for="fechaFin">Fecha Fin</label>
-                                    <input type="date" name="fechaFin" id="fechaFin" class="form-control" max="<?= date('Y-m-d') ?>" required>
+                                    <input type="date" name="fechaFin" id="fechaFin"
+                                        class="form-control"
+                                        max="<?= date('Y-m-d') ?>"
+                                        min="<?= date('Y-m-d', strtotime('-10 years')) ?>"
+                                        required>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary mt-3">Generar Reporte</button>
@@ -123,27 +130,34 @@ if ($_SESSION['tipo_usuario_id'] == 1 || $_SESSION['tipo_usuario_id'] == 3  || $
             <div class="row justify-content-center">
                 <div class="col-md-8 report-card">
                     <div class="card-header text-center">
-                        Reportes de Supervisión.
                     </div>
                     <div class="card-body">
                         <form action="../controller/reporteIndicadoresController.php" method="POST" target="_blank">
                             <select name="tipo_usuario" id="tipo_supervision" class="form-control mb-3" required onchange="updateSupervisionAction(this)">
                                 <option value="">Selecciona una opcion para generar el reporte</option>
-                                <option value="medidas_adolescentes">Medidas Adolescentes</option>
-                                <option value="condiciones_adolescentes">Condiciones Adolescentes</option>
-                                <option value="colab_medidas_adolescentes">Colaboraciones de Medidas de Adolescentes</option>
-                                <option value="colab_condiciones_adolescentes">Colaboraciones de Condiciones de Adolescentes</option>
+                                <option value="medidas_adolescentes">Medidas Adultos</option>
+                                <option value="condiciones_adolescentes">Condiciones Adultos</option>
+                                <option value="colab_medidas_adolescentes">Colaboraciones de Medidas de Adultos</option>
+                                <option value="colab_condiciones_adolescentes">Colaboraciones de Condiciones de Adultos</option>
                             </select>
 
                             <!-- Campos de fecha -->
                             <div class="row">
                                 <div class="col">
                                     <label for="fechaInicio">Fecha Inicio</label>
-                                    <input type="date" name="fechaInicio" id="fechaInicio" class="form-control" max="<?= date('Y-m-d') ?>" required>
+                                    <input type="date" name="fechaInicio" id="fechaInicio"
+                                        class="form-control"
+                                        max="<?= date('Y-m-d') ?>"
+                                        min="<?= date('Y-m-d', strtotime('-10 years')) ?>"
+                                        required>
                                 </div>
                                 <div class="col">
                                     <label for="fechaFin">Fecha Fin</label>
-                                    <input type="date" name="fechaFin" id="fechaFin" class="form-control" max="<?= date('Y-m-d') ?>" required>
+                                    <input type="date" name="fechaFin" id="fechaFin"
+                                        class="form-control"
+                                        max="<?= date('Y-m-d') ?>"
+                                        min="<?= date('Y-m-d', strtotime('-10 years')) ?>"
+                                        required>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary mt-3">Generar Reporte</button>

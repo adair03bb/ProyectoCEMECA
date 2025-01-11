@@ -110,11 +110,19 @@ if ($_SESSION['tipo_usuario_id'] == 1 || $_SESSION['tipo_usuario_id'] == 3  || $
                             <div class="row">
                                 <div class="col">
                                     <label for="fechaInicio">Fecha Inicio</label>
-                                    <input type="date" name="fechaInicio" id="fechaInicio" class="form-control" max="<?= date('Y-m-d') ?>" required>
+                                    <input type="date" name="fechaInicio" id="fechaInicio"
+                                        class="form-control"
+                                        max="<?= date('Y-m-d') ?>"
+                                        min="<?= date('Y-m-d', strtotime('-10 years')) ?>"
+                                        required>
                                 </div>
                                 <div class="col">
                                     <label for="fechaFin">Fecha Fin</label>
-                                    <input type="date" name="fechaFin" id="fechaFin" class="form-control" max="<?= date('Y-m-d') ?>" required>
+                                    <input type="date" name="fechaFin" id="fechaFin"
+                                        class="form-control"
+                                        max="<?= date('Y-m-d') ?>"
+                                        min="<?= date('Y-m-d', strtotime('-10 years')) ?>"
+                                        required>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary mt-3">Generar Reporte</button>
@@ -146,11 +154,19 @@ if ($_SESSION['tipo_usuario_id'] == 1 || $_SESSION['tipo_usuario_id'] == 3  || $
                             <div class="row">
                                 <div class="col">
                                     <label for="fechaInicio">Fecha Inicio</label>
-                                    <input type="date" name="fechaInicio" id="fechaInicio" class="form-control" max="<?= date('Y-m-d') ?>" required>
+                                    <input type="date" name="fechaInicio" id="fechaInicio"
+                                        class="form-control"
+                                        max="<?= date('Y-m-d') ?>"
+                                        min="<?= date('Y-m-d', strtotime('-10 years')) ?>"
+                                        required>
                                 </div>
                                 <div class="col">
                                     <label for="fechaFin">Fecha Fin</label>
-                                    <input type="date" name="fechaFin" id="fechaFin" class="form-control" max="<?= date('Y-m-d') ?>" required>
+                                    <input type="date" name="fechaFin" id="fechaFin"
+                                        class="form-control"
+                                        max="<?= date('Y-m-d') ?>"
+                                        min="<?= date('Y-m-d', strtotime('-10 years')) ?>"
+                                        required>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary mt-3">Generar Reporte</button>

@@ -68,10 +68,23 @@ $(document).ready(function() {
         let newPassword = $('#newPassword').val();
         let idusuario = $('#idusuario').val();
         let funcion = 'cambiar_contra';
-            if (oldPassword === '' || newPassword === '') {
-            alert('Las contraseñas no pueden estar vacías.');
+    
+        // Add length validation
+        if (oldPassword === '' || newPassword === '') {
+            $('#vacia').hide('slow');
+            $('#vacia').show(1000);
+            $('#vacia').hide(2000);
             return;
         }
+    
+        // New length check
+        if (newPassword.length > 10) {
+            $('#vacia').hide();
+            $('#noupdate').show(1000);
+            $('#noupdate').hide(2000);
+            return;
+        }
+    
         $.post('../controller/userController.php', { idusuario, funcion, oldPassword, newPassword }, (response) => {
             if (response.trim() == 'update') {
                 $('#update').hide('slow');
@@ -85,7 +98,7 @@ $(document).ready(function() {
                 $('#form-pass').trigger('reset');
             }
         });
-    })
+    });
 
 $('#form-photo').submit(e => {
     let formData = new FormData($('#form-photo')[0]);

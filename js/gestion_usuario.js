@@ -9,6 +9,11 @@ $(document).ready(function(){
         $('.card').find('#nomusu, #passusu').hide();
     }
   }
+  function ocultarCamposUsuarioAdmin() {
+    if (tipo_usuario == 1) {
+        $('.card').find('#passusu').hide();
+    }
+  }
 
     buscar_datos();
     var funcion;
@@ -154,7 +159,8 @@ $(document).ready(function(){
                 `;
             });
             $('#usuarios').html(template);
-            ocultarCamposUsuarioNormal(); // Llamar después de renderizar usuarios
+            ocultarCamposUsuarioNormal();
+            ocultarCamposUsuarioAdmin();
         });
     }
 $(document).on('keyup','#buscar',function(){
@@ -224,25 +230,27 @@ $(document).on('click','.borrar-usuario',(e)=>{
   $('#funcion').val(funcion);
 });
 
-$('#form-confirmar').submit(e=>{
-  let pass=$('#oldPassword').val();
-  let id_usuario=$('#id_user').val();
-  funcion =$('#funcion').val();
-   $.post('../controller/userController.php',{pass,id_usuario,funcion},(response)=>{
-    if (response=='ascendido' || response=='descendido' || response=='borrado') {
+$('#form-confirmar').submit(e => {
+  let pass = $('#oldPassword').val();
+  let id_usuario = $('#id_user').val();
+  funcion = $('#funcion').val();
+  $.post('../controller/userController.php', {pass, id_usuario, funcion}, (response) => {
+    if (response == 'ascendido' || response == 'descendido' || response == 'borrado') {
       $('#confirmado').hide('slow');
       $('#confirmado').show(1000);
       $('#confirmado').hide(2000);
       $('#form-confirmar').trigger('reset');
-       
-    }else{
+    } else if (response == 'password_incorrecto') {  // Add this specific check
       $('#rechazado').hide('slow');
       $('#rechazado').show(1000);
       $('#rechazado').hide(2000);
       $('#form-confirmar').trigger('reset');
+    } else {
+      // Handle any other unexpected responses
+      console.log('Unexpected response:', response);
     }
     buscar_datos();
-   });
+  });
   e.preventDefault();
 });
 
